@@ -20,7 +20,7 @@
     "test": "node scripts/ensure-bank.cjs && node scripts/run-electron-node.cjs scripts/check-bank.cjs",
     "lint": "eslint .",
     "format": "prettier --write \"src/**/*.{ts,vue}\" \"electron/**/*.ts\" \"shared/**/*.ts\"",
-    "dist": "node scripts/ensure-bank.cjs && node scripts/ensure-asr.cjs --required && npm run audio:build && electron-vite build && electron-builder --win"
+    "dist": "node scripts/ensure-bank.cjs && node scripts/ensure-asr.cjs --required && npm run audio:build && electron-vite build && electron-builder --win --publish never"
   },
   "dependencies": {
     "better-sqlite3": "^12.0.0",

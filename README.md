@@ -23,6 +23,23 @@
 
 主要面向家庭场景：一台电脑可以创建多个孩子账号，各自拥有独立的练习、考试、错题与统计；同时提供线下打印组卷，方便生成纸质练习卷、口算题卡、字帖和英语书写纸。
 
+## 界面截图
+
+<p align="center">
+  <img src="docs/images/screens/19-two-column-pdf.png" alt="双栏试卷 PDF 预览" width="100%" />
+</p>
+
+<p align="center"><sub>双栏试卷 PDF 预览 · 真实分页与打印效果</sub></p>
+
+## 下载安装
+
+Windows 安装包见 [Releases](https://github.com/132465798a/zhengxian-study-platform/releases/latest)。
+
+- 支持系统：Windows 10 / 11 x64
+- 安装包已内置题库、英语发音库与本地识别模型
+- 首次启动为空白账号列表，请点击「新建账号」创建使用者
+- 默认主题：浅色 + 墨黑，可在右上角切换深浅色与强调色
+
 ## 功能特性
 
 - **日常练习**：按学科、年级、题型、难度、知识点抽题，支持随机、错题优先、按知识点三种组卷方式。

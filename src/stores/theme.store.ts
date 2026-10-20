@@ -28,7 +28,7 @@ const DARK_INK = '#0d0d0f'
 function readMode(): ThemeMode {
   const raw = localStorage.getItem(MODE_KEY)
   if (raw === 'light' || raw === 'dark') return raw
-  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  return 'light'
 }
 
 function readAccent(): string {
