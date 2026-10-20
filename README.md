@@ -209,3 +209,13 @@ npm run dist
 本项目采用 [MIT License](LICENSE)。
 
 > 题库内容来自公开数据集与内置生成器，仅供学习交流使用；相关内容的版权归原作者所有。
+
+## Star History
+
+<a href="https://star-history.com/#132465798a/zx-study&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=132465798a/zx-study&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=132465798a/zx-study&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=132465798a/zx-study&type=Date" width="100%" />
+  </picture>
+</a>
