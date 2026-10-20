@@ -1,0 +1,1014 @@
+/* 打印与预览专用样式，只在 .print-root 内生效 */
+.print-root {
+  min-height: 100vh;
+  padding: 24px 0 64px;
+  background: #e9edf2;
+  color: #1b2430;
+}
+
+/* 预览窗口独立于主应用布局，需要自己滚动 */
+body:has(.print-root) {
+  overflow-y: auto;
+}
+
+.print-root:has(.preview-toolbar) {
+  padding-top: 0;
+}
+
+.print-root.is-plain {
+  padding: 0;
+  background: #fff;
+}
+
+.paper-shell {
+  margin: 0 auto;
+  background: #fff;
+  box-shadow: 0 12px 40px rgba(20, 30, 45, 0.12);
+}
+
+.paper {
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', SimSun, serif;
+  color: #1b2430;
+  font-size: 10.5pt;
+  line-height: 1.75;
+  width: 100%;
+  position: relative;
+}
+
+/* 首页左侧密封线 */
+.paper.has-seal {
+  padding-left: 22mm;
+}
+
+.seal-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 16mm;
+  padding-top: 30mm;
+  border-right: 0.25mm dashed #c0392b;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  letter-spacing: 3mm;
+  font-size: 9pt;
+  color: #c0392b;
+}
+
+.paper * {
+  box-sizing: border-box;
+}
+
+/* 卷头 */
+.paper-head {
+  padding-bottom: 3mm;
+  margin-bottom: 4mm;
+  border-bottom: 0.35mm solid #1b2430;
+}
+
+.paper-school {
+  font-family: 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  font-size: 11pt;
+  letter-spacing: 0.4em;
+  text-align: center;
+  margin-bottom: 2mm;
+}
+
+.paper-info {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 3mm 10mm;
+  font-size: 9.5pt;
+  margin-bottom: 3mm;
+}
+
+/* 信息栏在左侧：竖排，标题仍居中 */
+.paper-head.is-info-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 8mm;
+}
+
+.paper-head-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.paper-info.is-side {
+  flex: none;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 1.5mm;
+  width: 40mm;
+  margin-bottom: 0;
+  padding-top: 1mm;
+}
+
+/* 得分统计表 */
+.score-table {
+  width: 100%;
+  margin: 3mm 0 0;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 9.5pt;
+  text-align: center;
+}
+
+.score-table th,
+.score-table td {
+  height: 7mm;
+  padding: 0;
+  border: 0.2mm solid #1b2430;
+}
+
+.score-table .score-label {
+  width: 16mm;
+  font-weight: 400;
+}
+
+/* 卷首说明 */
+.paper-notice {
+  margin: 2.5mm 0 0;
+  font-size: 9.5pt;
+  line-height: 1.7;
+  color: #33404f;
+  white-space: pre-line;
+}
+
+/* 口算题：多题一行 */
+.oral-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--oral-cols, 4), minmax(0, 1fr));
+  gap: 3.5mm 6mm;
+  margin: 1mm 0 2mm;
+}
+
+/* 作图区 */
+.graph-block {
+  margin-top: 5mm;
+  break-inside: avoid;
+}
+
+.graph-area {
+  margin-top: 2mm;
+  border: 0.2mm solid #8a97a8;
+}
+
+.graph-area.is-grid {
+  background-image:
+    linear-gradient(to right, #c3ccd8 0.12mm, transparent 0.12mm),
+    linear-gradient(to bottom, #c3ccd8 0.12mm, transparent 0.12mm),
+    linear-gradient(to right, #8a97a8 0.22mm, transparent 0.22mm),
+    linear-gradient(to bottom, #8a97a8 0.22mm, transparent 0.22mm);
+  background-size: 5mm 5mm, 5mm 5mm, 10mm 10mm, 10mm 10mm;
+}
+
+.graph-area.is-dot {
+  background-image: radial-gradient(#8a97a8 0.35mm, transparent 0.35mm);
+  background-size: 10mm 10mm;
+  background-position: 2mm 2mm;
+}
+
+/* 附加题 */
+.bonus-block {
+  margin-top: 6mm;
+  break-inside: avoid;
+}
+
+/* 答案页评分标准 */
+.answer-note {
+  display: block;
+  margin-top: 0.4mm;
+  font-size: 8.5pt;
+  color: #7a8796;
+}
+
+/* 看拼音写词语题型 */
+.pinyin-word-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4mm 10mm;
+}
+
+.pinyin-word-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2mm;
+  break-inside: avoid;
+}
+
+.pinyin-word-no {
+  margin-right: 1mm;
+  font-size: 9pt;
+  color: #5a6674;
+}
+
+.pinyin-word-text {
+  font-family: 'Times New Roman', 'Andika', serif;
+  font-size: 11pt;
+  letter-spacing: 0.6mm;
+}
+
+.pinyin-word-cells {
+  display: flex;
+  gap: 1mm;
+}
+
+/* 打印校准尺 */
+.print-ruler {
+  margin-top: 8mm;
+  break-inside: avoid;
+}
+
+.ruler-svg {
+  display: block;
+  color: #5a6674;
+}
+
+.ruler-text {
+  margin: 1mm 0 0;
+  font-size: 7.5pt;
+  color: #8a97a8;
+}
+
+.oral-cell {
+  display: flex;
+  align-items: baseline;
+  gap: 1mm;
+  white-space: nowrap;
+  break-inside: avoid;
+}
+
+.oral-cell .calc-line {
+  flex: 1;
+  min-width: 8mm;
+}
+
+.paper-title {
+  margin: 0;
+  font-family: 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  font-size: 16pt;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.08em;
+}
+
+.paper-meta {
+  margin: 2mm 0 0;
+  text-align: center;
+  font-size: 9.5pt;
+  color: #33404f;
+}
+
+/* 双栏（A3 / B4 / 8K） */
+.paper-body.is-columns {
+  column-count: 2;
+  column-gap: 10mm;
+}
+
+/* 大题 */
+.print-section {
+  margin-bottom: 4mm;
+}
+
+.section-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 3mm;
+  break-after: avoid;
+}
+
+.section-head-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.section-score-box {
+  flex: none;
+  width: 20mm;
+  margin-top: 1mm;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 8pt;
+  text-align: center;
+}
+
+.section-score-box td {
+  height: 5.5mm;
+  padding: 0 0.8mm;
+  border: 0.2mm solid #1b2430;
+}
+
+.section-score-box td:first-child {
+  width: 9mm;
+  color: #33404f;
+}
+
+.print-section + .print-section {
+  margin-top: 1mm;
+}
+
+.section-title {
+  margin: 0 0 1mm;
+  font-family: 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  font-size: 11.5pt;
+  font-weight: 700;
+}
+
+.section-instruction {
+  margin: 0 0 2.5mm;
+  font-size: 9pt;
+  color: #5a6674;
+}
+
+/* 双栏排版时标题不能单独留在上一栏 */
+.section-title,
+.section-instruction {
+  break-after: avoid;
+}
+
+/* 题目 */
+.question-item {
+  margin-bottom: 2.6mm;
+  break-inside: avoid;
+}
+
+.question-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5mm;
+}
+
+.question-no {
+  flex: none;
+  min-width: 7mm;
+  font-family: 'Times New Roman', serif;
+  font-size: 10.5pt;
+  font-weight: 700;
+}
+
+.question-stem {
+  flex: 1;
+  min-width: 0;
+}
+
+.question-score {
+  margin-left: 1.5mm;
+  font-size: 9pt;
+  color: #5a6674;
+  white-space: nowrap;
+}
+
+.choice-bracket {
+  margin-left: 1mm;
+  white-space: nowrap;
+}
+
+.question-body {
+  margin-top: 1mm;
+}
+
+.question-body.is-indent {
+  padding-left: 8.5mm;
+}
+
+/* 选择题 */
+.choice-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5mm 9mm;
+  padding-left: 8.5mm;
+}
+
+.choice-options.is-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5mm 8mm;
+}
+
+.choice-options.is-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2mm;
+}
+
+.choice-item {
+  display: flex;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.choice-letter {
+  flex: none;
+  margin-right: 1.5mm;
+  font-family: 'Times New Roman', serif;
+  font-weight: 700;
+}
+
+.choice-label {
+  min-width: 0;
+}
+
+/* 判断 */
+.judge-bracket {
+  display: inline-block;
+  margin-left: 2mm;
+  letter-spacing: 1mm;
+}
+
+/* 填空横线 */
+.p-blank {
+  display: inline-block;
+  height: 1.2em;
+  margin: 0 1mm;
+  border-bottom: 0.2mm solid #36414e;
+  vertical-align: baseline;
+}
+
+.p-blank-index {
+  font-size: 8pt;
+  margin-right: 0.5mm;
+  vertical-align: 0.25em;
+}
+
+/* 连线题 */
+.matching-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4mm 18mm;
+  padding-left: 8.5mm;
+}
+
+.matching-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6mm;
+}
+
+.matching-row {
+  display: flex;
+  align-items: baseline;
+  gap: 2mm;
+  min-height: 6mm;
+}
+
+.matching-mark {
+  flex: none;
+  width: 5mm;
+  font-family: 'Times New Roman', serif;
+  font-weight: 700;
+}
+
+.matching-answer-line {
+  margin-top: 2mm;
+  padding-left: 8.5mm;
+  font-size: 9.5pt;
+  letter-spacing: 0.06em;
+}
+
+.matching-answer-line span {
+  margin-right: 5mm;
+}
+
+/* 排序题 */
+.sorting-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2mm;
+  padding-left: 8.5mm;
+}
+
+.sorting-item {
+  display: flex;
+  align-items: baseline;
+  gap: 2mm;
+}
+
+.sorting-box {
+  flex: none;
+  width: 10mm;
+  border-bottom: 0.2mm solid #36414e;
+}
+
+.sorting-text.is-glyph {
+  font-size: 15pt;
+  line-height: 1;
+}
+
+/* 简答题 */
+.answer-lines {
+  padding-left: 8.5mm;
+}
+
+.p-answer-line {
+  height: 9mm;
+  border-bottom: 0.18mm solid #a7b1bd;
+}
+
+.p-answer-line + .p-answer-line {
+  margin-top: 0.6mm;
+}
+
+.essay-grid {
+  display: grid;
+  grid-template-columns: repeat(20, 8mm);
+  margin-left: 8.5mm;
+  border-top: 0.18mm solid #8a97a8;
+  border-left: 0.18mm solid #8a97a8;
+  width: fit-content;
+}
+
+.essay-cell {
+  width: 8mm;
+  height: 8mm;
+  border-right: 0.18mm solid #8a97a8;
+  border-bottom: 0.18mm solid #8a97a8;
+}
+
+/* 计算题 */
+.calc-expression {
+  padding-left: 8.5mm;
+  font-size: 11pt;
+}
+
+.calc-line {
+  display: inline-block;
+  min-width: 24mm;
+  border-bottom: 0.2mm solid #36414e;
+}
+
+.calc-solve {
+  margin-top: 1mm;
+  padding-left: 8.5mm;
+}
+
+.calc-answer-line {
+  padding-left: 8.5mm;
+  margin-top: 1.5mm;
+}
+
+/* 竖式 */
+.vertical-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--vertical-cols, 4), minmax(0, 1fr));
+  gap: 3mm 5mm;
+  margin-top: 2mm;
+}
+
+.vertical-cell {
+  position: relative;
+  border: 0.25mm solid #9aa5b1;
+  border-radius: 1mm;
+  padding: 2mm 3mm 2.5mm;
+  min-height: 30mm;
+}
+
+.vertical-no {
+  position: absolute;
+  top: 1mm;
+  left: 2mm;
+  font-size: 8pt;
+  color: #6b7785;
+}
+
+.vertical-calc {
+  margin-top: 3mm;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-right: 3mm;
+}
+
+.vc-row {
+  display: flex;
+  align-items: baseline;
+  white-space: pre;
+  font-family: 'Courier New', Consolas, monospace;
+  font-size: 12pt;
+  line-height: 1.5;
+}
+
+.vc-op {
+  width: 5mm;
+  text-align: center;
+}
+
+.vc-num {
+  min-width: 0;
+  text-align: right;
+}
+
+.vc-rule {
+  width: 100%;
+  max-width: 40mm;
+  height: 0;
+  border-top: 0.3mm solid #1b2430;
+  margin: 0.6mm 0 0;
+}
+
+.vc-answer {
+  height: 7mm;
+}
+
+.long-div {
+  margin-top: 4mm;
+  font-family: 'Courier New', Consolas, monospace;
+  font-size: 12pt;
+}
+
+.ld-quotient {
+  height: 7mm;
+  margin-left: 12mm;
+  border-bottom: 0.25mm solid transparent;
+}
+
+.ld-body {
+  display: flex;
+  align-items: flex-start;
+}
+
+.ld-divisor {
+  width: 11mm;
+  text-align: right;
+  padding-right: 1.5mm;
+  line-height: 1;
+  padding-top: 1mm;
+}
+
+.ld-bracket {
+  flex: none;
+  width: max-content;
+  min-width: 14mm;
+  min-height: 13mm;
+  padding: 1mm 0 0 2mm;
+  border-left: 0.3mm solid #1b2430;
+  border-top: 0.3mm solid #1b2430;
+  border-top-left-radius: 1.5mm;
+}
+
+.vertical-scratch {
+  height: 14mm;
+  margin-top: 2mm;
+  border-top: 0.15mm dashed #b8c2cd;
+}
+
+/* 答案页 */
+.answer-page {
+  margin-top: 8mm;
+  padding-top: 4mm;
+  border-top: 0.35mm solid #1b2430;
+  break-before: page;
+}
+
+.answer-title {
+  margin: 0 0 3mm;
+  font-family: 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  font-size: 14pt;
+  text-align: center;
+}
+
+.answer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5mm 6mm;
+  font-size: 10pt;
+}
+
+.answer-item {
+  min-width: 0;
+}
+
+.answer-no {
+  font-weight: 700;
+  margin-right: 1mm;
+}
+
+.solution-list {
+  margin-top: 3mm;
+  display: flex;
+  flex-direction: column;
+  gap: 1mm;
+  font-size: 9pt;
+  color: #4b5765;
+}
+
+.solution-item {
+  line-height: 1.65;
+}
+
+/* 答题卡 */
+.answer-sheet {
+  break-before: page;
+  padding-top: 2mm;
+}
+
+.sheet-title {
+  margin: 0 0 2mm;
+  font-family: 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  font-size: 14pt;
+  text-align: center;
+}
+
+.sheet-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9.5pt;
+  margin-bottom: 4mm;
+}
+
+.sheet-section {
+  margin-bottom: 4mm;
+}
+
+.sheet-section-title {
+  font-family: 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  font-size: 11pt;
+  font-weight: 700;
+  margin-bottom: 2mm;
+}
+
+.sheet-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5mm 8mm;
+}
+
+.sheet-choice {
+  display: flex;
+  align-items: center;
+  gap: 2mm;
+  font-size: 10pt;
+}
+
+.sheet-bubble {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 5.5mm;
+  height: 5.5mm;
+  border: 0.2mm solid #5a6674;
+  border-radius: 50%;
+  font-size: 8pt;
+  font-family: 'Times New Roman', serif;
+}
+
+.sheet-line {
+  display: flex;
+  align-items: baseline;
+  gap: 2mm;
+  margin-bottom: 2.5mm;
+}
+
+.sheet-line .p-answer-line {
+  flex: 1;
+  height: 8mm;
+}
+
+.sheet-box {
+  border: 0.25mm solid #9aa5b1;
+  border-radius: 1mm;
+  padding: 2mm;
+  margin-bottom: 2.5mm;
+  min-height: 18mm;
+}
+
+.sheet-box-title {
+  font-size: 9.5pt;
+  color: #4b5765;
+  margin-bottom: 1mm;
+}
+
+/* 文字练习 / 英语书写 */
+.practice-sheet {
+  margin-top: 4mm;
+}
+
+.practice-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2mm;
+  margin-bottom: 2.2mm;
+  break-inside: avoid;
+}
+
+.practice-label {
+  flex: none;
+  width: 6mm;
+  padding-top: 3mm;
+  font-size: 9pt;
+  color: #5a6674;
+  text-align: right;
+}
+
+.practice-cells {
+  display: flex;
+  gap: 1.5mm;
+}
+
+/* 看拼音写词语：整行铺满，避免右侧大片空白 */
+.practice-sheet.is-pinyin-word .practice-row {
+  justify-content: flex-start;
+}
+
+.practice-sheet.is-pinyin-word .practice-cells {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.practice-sheet.is-pinyin-word .practice-cell.is-group-start {
+  margin-left: 0;
+}
+
+.practice-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.practice-caption {
+  flex: 1;
+  padding-top: 1mm;
+  margin-top: 0.6mm;
+  font-size: 8.5pt;
+  color: #5a6674;
+}
+
+.english-line {
+  position: relative;
+  width: 100%;
+  line-height: 1;
+}
+
+.english-line-text {
+  position: absolute;
+  left: 2mm;
+  bottom: 3.2mm;
+  font-family: Andika, 'Segoe UI', Arial, sans-serif;
+  font-size: 10.5pt;
+  white-space: pre;
+}
+
+.english-line-text.is-trace {
+  color: #c3ccd7;
+}
+
+/* 屏幕预览工具条 */
+.preview-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  margin-bottom: 18px;
+  background: #ffffff;
+  border-bottom: 1px solid #d8dee6;
+  font-family: 'Microsoft YaHei', sans-serif;
+  /* 预览窗口无系统标题栏，工具条兼作拖动区 */
+  -webkit-app-region: drag;
+}
+
+.preview-toolbar button {
+  -webkit-app-region: no-drag;
+}
+
+.preview-toolbar .grow {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  color: #4b5765;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.preview-message {
+  font-size: 12px;
+  color: #2c6e56;
+}
+
+.preview-message.is-error {
+  color: #b0432a;
+}
+
+.print-loading,
+.print-error {
+  display: flex;
+  min-height: 60vh;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Microsoft YaHei', sans-serif;
+  color: #5a6674;
+  font-size: 13px;
+}
+
+.pdf-pages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 40px;
+  transform-origin: top center;
+}
+
+.pdf-page {
+  margin: 0;
+  background: #fff;
+  box-shadow: 0 12px 36px rgba(20, 30, 45, 0.16);
+}
+
+.pdf-page img {
+  display: block;
+  height: auto;
+}
+
+.pdf-page figcaption {
+  padding: 5px 0 6px;
+  text-align: center;
+  font-family: 'Microsoft YaHei', sans-serif;
+  font-size: 11px;
+  color: #6b7785;
+  background: #fff;
+}
+
+.pdf-loading {
+  position: sticky;
+  top: 54px;
+  z-index: 15;
+  width: fit-content;
+  margin: 0 auto 12px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(27, 36, 48, 0.82);
+  color: #fff;
+  font-family: 'Microsoft YaHei', sans-serif;
+  font-size: 12px;
+}
+
+.print-error {
+  color: #b0432a;
+}
+
+@media print {
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    background-color: #fff !important;
+  }
+
+  #app {
+    background: #fff !important;
+    background-color: #fff !important;
+  }
+
+  .print-root,
+  .print-root.is-plain {
+    padding: 0 !important;
+    background: #fff !important;
+    background-color: #fff !important;
+  }
+
+  .paper-shell {
+    width: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    zoom: 1 !important;
+  }
+
+  .preview-toolbar,
+  .preview-message,
+  .pdf-loading,
+  .pdf-pages,
+  .print-loading,
+  .print-error {
+    display: none !important;
+  }
+
+  .paper {
+    font-size: 10.5pt;
+  }
+
+  .question-item,
+  .practice-row,
+  .answer-item,
+  .sheet-box,
+  .vertical-cell {
+    break-inside: avoid;
+  }
+
+  .answer-page,
+  .answer-sheet {
+    break-before: page;
+  }
+}

@@ -1,0 +1,22 @@
+export const nav = {
+  groupStudy: '学习',
+  groupManage: '管理',
+  home: '首页',
+  practice: '练习',
+  exam: '考试',
+  wrongbook: '错题本',
+  stats: '学习统计',
+  offline: '线下学习',
+  admin: '题库管理',
+  homeDesc: '今日学习概览',
+  practiceDesc: '按学科与知识点自由练习',
+  examDesc: '限时模拟检测',
+  wrongbookDesc: '集中攻克做错的题',
+  statsDesc: '正确率与学习趋势',
+  offlineDesc: '生成可打印的练习卷、字帖与书写纸',
+  adminDesc: '录题与批量导入',
+  switchUser: '切换账号',
+  currentUser: '当前账号',
+  settings: '设置',
+  hint: 'Alt+1~4 快速切换页面'
+}

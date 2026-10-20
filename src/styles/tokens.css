@@ -1,0 +1,140 @@
+:root {
+  --font-display: 'Segoe UI Light', 'Microsoft YaHei Light', 'DengXian Light', 'PingFang SC',
+    'Microsoft YaHei', sans-serif;
+  --font-body: 'Segoe UI Light', 'Microsoft YaHei Light', 'DengXian Light', 'PingFang SC',
+    'Microsoft YaHei', sans-serif;
+  --font-num: 'Segoe UI Light', 'Microsoft YaHei Light', 'DengXian Light', 'PingFang SC',
+    sans-serif;
+  --rail-width: 220px;
+  --titlebar-height: 36px;
+  --radius: 6px;
+  --radius-sm: 4px;
+  --icon-size: 14px;
+  --accent-color: #18181b;
+  --p-primary-50: #f4f4f5;
+  --p-primary-100: #e4e4e7;
+  --p-primary-200: #d4d4d8;
+  --p-primary-300: #a1a1aa;
+  --p-primary-400: #71717a;
+  --p-primary-500: #52525b;
+  --p-primary-600: #3f3f46;
+  --p-primary-700: #27272a;
+  --p-primary-800: #18181b;
+  --p-primary-900: #09090b;
+  --p-primary-950: #000000;
+}
+
+[data-theme='light'] {
+  --bg: #f6f6f7;
+  --bg-sunken: #ededf0;
+  --bg-raised: #ffffff;
+  --ink: #18181b;
+  --ink-soft: #52525b;
+  --ink-faint: #a1a1aa;
+  --line: #e8e8ec;
+  --line-strong: #dcdce1;
+  --accent: var(--accent-color, #18181b);
+  --accent-contrast: #ffffff;
+  --accent-soft: color-mix(in srgb, var(--accent) 10%, transparent);
+  --danger: #dc2626;
+  --danger-soft: rgba(220, 38, 38, 0.1);
+  --success: #059669;
+  --success-soft: rgba(5, 150, 105, 0.12);
+  --warn: #d97706;
+  --warn-soft: rgba(217, 119, 6, 0.12);
+}
+
+[data-theme='dark'] {
+  --bg: #0d0d0f;
+  --bg-sunken: #050506;
+  --bg-raised: #18181b;
+  --ink: #fafafa;
+  --ink-soft: #d4d4d8;
+  --ink-faint: #71717a;
+  --line: #27272a;
+  --line-strong: #3f3f46;
+  --accent: var(--accent-color, #fafafa);
+  --accent-contrast: #0d0d0f;
+  --accent-soft: color-mix(in srgb, var(--accent) 16%, transparent);
+  --danger: #ef4444;
+  --danger-soft: rgba(239, 68, 68, 0.16);
+  --success: #34d399;
+  --success-soft: rgba(52, 211, 153, 0.16);
+  --warn: #fbbf24;
+  --warn-soft: rgba(251, 191, 36, 0.16);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--ink);
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-faint);
+}
+
+.num {
+  font-family: var(--font-num);
+  font-variant-numeric: tabular-nums;
+}
+
+.drag-region {
+  -webkit-app-region: drag;
+}
+
+.no-drag {
+  -webkit-app-region: no-drag;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

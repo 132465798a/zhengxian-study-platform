@@ -1,0 +1,29 @@
+appId: com.zhengxian.study
+productName: 正贤学习平台
+directories:
+  output: dist
+files:
+  - out/**/*
+  - package.json
+npmRebuild: true
+asarUnpack:
+  - "**/node_modules/better-sqlite3/**"
+  - "**/node_modules/sherpa-onnx-node/**"
+  - "**/node_modules/sherpa-onnx-win-x64/**"
+extraResources:
+  - from: build/bank.db
+    to: bank.db
+  - from: build/icon.png
+    to: icon.png
+  - from: build/asr
+    to: asr
+  - from: build/audio
+    to: audio
+win:
+  icon: build/icon.ico
+  target:
+    - nsis
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  shortcutName: 正贤学习平台

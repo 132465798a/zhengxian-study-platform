@@ -1,0 +1,19 @@
+node_modules/
+out/
+dist/
+.tmp/
+*.log
+
+# 题库源数据，不随开源仓库分发
+datasets/
+
+# sqlite 临时文件
+*.db-shm
+*.db-wal
+
+# 首次运行自动下载的语音识别模型
+build/asr/
+
+# 系统临时文件
+.DS_Store
+Thumbs.db
