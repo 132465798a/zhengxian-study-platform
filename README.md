@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/banner.png" alt="正贤学习平台" width="100%" />
+  <img src="https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/banner.png" alt="正贤学习平台" width="100%" />
 </p>
 
 <h1 align="center">正贤学习平台</h1>
@@ -22,16 +22,16 @@
 ## 界面截图
 
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/19-two-column-pdf.png" alt="双栏试卷 PDF 预览" width="100%" />
+  <img src="https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/19-two-column-pdf.png" alt="双栏试卷 PDF 预览" width="100%" />
 </p>
 
 <p align="center"><sub>双栏试卷 PDF 预览 · 真实分页与打印效果</sub></p>
 
-> 如果图片未显示，可直接浏览 [截图目录](https://github.com/132465798a/zhengxian-study-platform/tree/main/docs/images/screens)。
+> 如果图片未显示，可直接浏览 [截图目录](https://github.com/132465798a/zx-study/tree/main/docs/images/screens)。
 
 ## 下载安装
 
-Windows 安装包见 [Releases](https://github.com/132465798a/zhengxian-study-platform/releases/latest)。
+Windows 安装包见 [Releases](https://github.com/132465798a/zx-study/releases/latest)。
 
 - 支持系统：Windows 10 / 11 x64
 - 安装包已内置题库、英语发音库与本地识别模型
@@ -59,55 +59,55 @@ Windows 安装包见 [Releases](https://github.com/132465798a/zhengxian-study-pl
 
 | 账号选择 | 首页 |
 |---|---|
-| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/01-user-gate.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/02-home.png) |
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/01-user-gate.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/02-home.png) |
 
 | 练习设置 | 练习答题 |
 |---|---|
-| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/04-practice-setup.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/05-practice.png) |
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/04-practice-setup.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/05-practice.png) |
 
 | 练习结果 | 错题本 |
 |---|---|
-| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/06-practice-result.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/10-wrongbook.png) |
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/06-practice-result.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/10-wrongbook.png) |
 
 | 模拟考试 | 考试答题 |
 |---|---|
-| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/07-exam-list.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/08-exam.png) |
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/07-exam-list.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/08-exam.png) |
 
 | 考试结果 | 学习统计 |
 |---|---|
-| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/09-exam-result.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/11-stats.png) |
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/09-exam-result.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/11-stats.png) |
 
 ### 线下学习
 
 | 自由组卷 | 打印设置 |
 |---|---|
-| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/03-offline.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/17-print-settings.png) |
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/03-offline.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/17-print-settings.png) |
 
 | 试卷预览 | 手动组卷 |
 |---|---|
-| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/18-print-preview.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/16-paper-editor.png) |
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/18-print-preview.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/16-paper-editor.png) |
 
 | 文字练习 | 口算题卡 |
 |---|---|
-| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/20-text-practice.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/21-oral-card.png) |
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/20-text-practice.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/21-oral-card.png) |
 
 | 英语书写 | 英语书写纸预览 |
 |---|---|
-| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/22-english-writing.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/23-english-writing-preview.png) |
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/22-english-writing.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/23-english-writing-preview.png) |
 
 | 字帖预览 | 双栏试卷 |
 |---|---|
-| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/24-text-practice-preview.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/19-two-column-pdf.png) |
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/24-text-practice-preview.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/19-two-column-pdf.png) |
 
 ### 学习工具
 
 | 汉字学习 | 英语听力 |
 |---|---|
-| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/12-character.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/13-english.png) |
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/12-character.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/13-english.png) |
 
 | 题库管理 | 批量导入 |
 |---|---|
-| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/14-question-admin.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/15-import.png) |
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/14-question-admin.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zx-study@main/docs/images/screens/15-import.png) |
 
 ## 技术栈
 
@@ -132,8 +132,8 @@ Windows 安装包见 [Releases](https://github.com/132465798a/zhengxian-study-pl
 ### 克隆与启动
 
 ```powershell
-git clone https://github.com/132465798a/zhengxian-study-platform.git
-cd zhengxian-study-platform
+git clone https://github.com/132465798a/zx-study.git
+cd zx-study
 npm install
 npm run dev
 ```
