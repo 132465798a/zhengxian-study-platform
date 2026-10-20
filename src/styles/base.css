@@ -219,3 +219,10 @@ main.content:has(.english-page) {
 .p-dialog .p-dialog-close-button:hover {
   background: var(--accent-soft) !important;
 }
+.p-dialog .p-dialog-header-close:focus,
+.p-dialog .p-dialog-close-button:focus,
+.p-dialog .p-dialog-header-close:focus-visible,
+.p-dialog .p-dialog-close-button:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
