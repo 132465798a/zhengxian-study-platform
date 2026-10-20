@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/images/banner.png" alt="正贤学习平台" width="100%" />
+  <img src="https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/banner.png" alt="正贤学习平台" width="100%" />
 </p>
 
 <h1 align="center">正贤学习平台</h1>
@@ -10,11 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/platform-Windows-2563eb?style=flat-square" alt="Windows" />
-  <img src="https://img.shields.io/badge/Electron-44-47848f?style=flat-square" alt="Electron" />
-  <img src="https://img.shields.io/badge/Vue-3.5-42b883?style=flat-square" alt="Vue" />
-  <img src="https://img.shields.io/badge/TypeScript-5.7-3178c6?style=flat-square" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/license-MIT-18181b?style=flat-square" alt="MIT" />
+  Windows 10/11 · Electron 44 · Vue 3.5 · TypeScript · MIT
 </p>
 
 ## 项目简介
@@ -26,10 +22,12 @@
 ## 界面截图
 
 <p align="center">
-  <img src="docs/images/screens/19-two-column-pdf.png" alt="双栏试卷 PDF 预览" width="100%" />
+  <img src="https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/19-two-column-pdf.png" alt="双栏试卷 PDF 预览" width="100%" />
 </p>
 
 <p align="center"><sub>双栏试卷 PDF 预览 · 真实分页与打印效果</sub></p>
+
+> 如果图片未显示，可直接浏览 [截图目录](https://github.com/132465798a/zhengxian-study-platform/tree/main/docs/images/screens)。
 
 ## 下载安装
 
@@ -47,7 +45,9 @@ Windows 安装包见 [Releases](https://github.com/132465798a/zhengxian-study-pl
 - **错题本**：答错自动收录，支持按学科/年级/掌握状态筛选、查看解析、标记已掌握、错题专练。
 - **线下组卷**：生成可打印试卷，支持 A4/A3/B4/8K、单双栏、答案页、答题卡、得分表、密封线、页码、卷首说明、作文格、竖式区、作图区、附加题、答案评分标准等版式。
 - **手动组卷**：空白卷编辑器，可从题库挑题或调用生成器，实时预览并直接打印/导出 PDF。
-- **看拼音写词语**：按年级词库出题，田字格排版，支持整节平铺。
+- **文字练习**：生成田字格、米字格、回宫格和拼音田字格字帖，支持范字、描红与空格练习。
+- **口算题卡**：按年级、题量、数值范围和加减乘除运算生成整页口算题。
+- **英语书写**：生成单词、句子、整句抄写与听写纸，支持四线三格排版。
 - **汉字学习**：拼音、部首、笔画数、结构、笔顺动画、组词与成语。
 - **英语听力**：听音选词、听音辨义、听写填空、句子听力、跟读评分。
 - **学习统计**：答题量、正确率、学习时长、学科分布、近 14 天趋势、练习与考试记录。
@@ -55,41 +55,59 @@ Windows 安装包见 [Releases](https://github.com/132465798a/zhengxian-study-pl
 
 ## 界面预览
 
+### 核心流程
+
 | 账号选择 | 首页 |
 |---|---|
-| ![](docs/images/screens/01-user-gate.png) | ![](docs/images/screens/02-home.png) |
-
-| 线下学习 | 打印设置 |
-|---|---|
-| ![](docs/images/screens/03-offline.png) | ![](docs/images/screens/17-print-settings.png) |
-
-| 试卷预览 | 手动组卷 |
-|---|---|
-| ![](docs/images/screens/18-print-preview.png) | ![](docs/images/screens/16-paper-editor.png) |
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/01-user-gate.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/02-home.png) |
 
 | 练习设置 | 练习答题 |
 |---|---|
-| ![](docs/images/screens/04-practice-setup.png) | ![](docs/images/screens/05-practice.png) |
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/04-practice-setup.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/05-practice.png) |
 
 | 练习结果 | 错题本 |
 |---|---|
-| ![](docs/images/screens/06-practice-result.png) | ![](docs/images/screens/10-wrongbook.png) |
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/06-practice-result.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/10-wrongbook.png) |
 
 | 模拟考试 | 考试答题 |
 |---|---|
-| ![](docs/images/screens/07-exam-list.png) | ![](docs/images/screens/08-exam.png) |
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/07-exam-list.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/08-exam.png) |
 
 | 考试结果 | 学习统计 |
 |---|---|
-| ![](docs/images/screens/09-exam-result.png) | ![](docs/images/screens/11-stats.png) |
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/09-exam-result.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/11-stats.png) |
+
+### 线下学习
+
+| 自由组卷 | 打印设置 |
+|---|---|
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/03-offline.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/17-print-settings.png) |
+
+| 试卷预览 | 手动组卷 |
+|---|---|
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/18-print-preview.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/16-paper-editor.png) |
+
+| 文字练习 | 口算题卡 |
+|---|---|
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/20-text-practice.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/21-oral-card.png) |
+
+| 英语书写 | 英语书写纸预览 |
+|---|---|
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/22-english-writing.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/23-english-writing-preview.png) |
+
+| 字帖预览 | 双栏试卷 |
+|---|---|
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/24-text-practice-preview.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/19-two-column-pdf.png) |
+
+### 学习工具
 
 | 汉字学习 | 英语听力 |
 |---|---|
-| ![](docs/images/screens/12-character.png) | ![](docs/images/screens/13-english.png) |
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/12-character.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/13-english.png) |
 
 | 题库管理 | 批量导入 |
 |---|---|
-| ![](docs/images/screens/14-question-admin.png) | ![](docs/images/screens/15-import.png) |
+| ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/14-question-admin.png) | ![](https://cdn.jsdelivr.net/gh/132465798a/zhengxian-study-platform@main/docs/images/screens/15-import.png) |
 
 ## 技术栈
 
@@ -108,12 +126,14 @@ Windows 安装包见 [Releases](https://github.com/132465798a/zhengxian-study-pl
 ### 环境要求
 
 - Windows 10 / 11
-- Node.js 22 及以上
+- Node.js 22 及以上（开发环境使用 Node 24 / npm 11 验证）
 - npm 10 及以上
 
-### 安装与启动
+### 克隆与启动
 
 ```powershell
+git clone https://github.com/132465798a/zhengxian-study-platform.git
+cd zhengxian-study-platform
 npm install
 npm run dev
 ```
@@ -126,9 +146,11 @@ npm run dev
 # 编译主进程、preload 与渲染进程
 npm run build
 
-# 生成 Windows 安装包
+# 生成 Windows 安装包，输出到 dist/
 npm run dist
 ```
+
+`npm run dist` 会确保题库、英语发音库和本地识别模型齐全，再执行 electron-builder 打包。
 
 ### 常用脚本
 
@@ -141,7 +163,6 @@ npm run dist
 | `npm run typecheck` | 前端 + 主进程类型检查 |
 | `npm run lint` | ESLint 检查 |
 | `npm test` | 题库与词库健康检查 |
-| `npm run seed:build` | 从 `datasets/` 重建题库（需要源数据） |
 | `npm run audio:build` | 重新生成英语词表发音库 |
 | `npm run asr:fetch` | 下载本地英语识别模型 |
 
@@ -150,7 +171,6 @@ npm run dist
 - `build/bank.db`：随仓库提供的题库，约 74,000 题，覆盖 1-6 年级语文、数学、英语。
 - `build/audio/`：英语词表发音库，供离线听力使用。
 - `build/asr/`：本地英语识别模型，不在仓库中；首次运行 `npm run dev` 时自动下载（约 45MB）。
-- `datasets/`：题库源数据，不随仓库分发；如需重建题库，请自行准备并使用 `npm run seed:build`。
 - 用户数据保存在 `%APPDATA%\正贤学习平台`，包括用户、练习、考试、错题、模板与设置。仓库不包含任何用户数据。
 
 ## 目录结构
@@ -168,8 +188,7 @@ npm run dist
 │  └─ i18n/            # 中文文案
 ├─ scripts/            # 题库构建、ASR 下载、检查脚本
 ├─ build/              # 题库、音频、图标等构建资产
-├─ docs/images/        # README 图片
-└─ .github/workflows/  # CI
+└─ docs/images/        # README 图片
 ```
 
 ## 隐私说明
@@ -183,13 +202,3 @@ npm run dist
 本项目采用 [MIT License](LICENSE)。
 
 > 题库内容来自公开数据集与内置生成器，仅供学习交流使用；相关内容的版权归原作者所有。
-
-## 致谢
-
-- [Electron](https://www.electronjs.org/)
-- [Vue](https://vuejs.org/)
-- [PrimeVue](https://primevue.org/)
-- [better-sqlite3](https://github.com/WiseLibs/better-sqlite3)
-- [cnchar](https://github.com/theajack/cnchar)
-- [hanzi-writer](https://github.com/chanind/hanzi-writer)
-- [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx)
