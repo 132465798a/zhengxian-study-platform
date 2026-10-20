@@ -146,6 +146,9 @@ npm run dev
 # 编译主进程、preload 与渲染进程
 npm run build
 
+# 自动构建并预览生产版本
+npm run start
+
 # 生成 Windows 安装包，输出到 dist/
 npm run dist
 ```
@@ -158,13 +161,17 @@ npm run dist
 |---|---|
 | `npm run dev` | 开发模式启动 |
 | `npm run dev:debug` | 开发模式并开放 9222 调试端口 |
+| `npm run start` | 预览生产构建（自动构建并启动） |
 | `npm run build` | 生产构建 |
 | `npm run dist` | 打包 Windows NSIS 安装包 |
 | `npm run typecheck` | 前端 + 主进程类型检查 |
 | `npm run lint` | ESLint 检查 |
+| `npm run format` | 使用 Prettier 格式化代码 |
 | `npm test` | 题库与词库健康检查 |
 | `npm run audio:build` | 重新生成英语词表发音库 |
 | `npm run asr:fetch` | 下载本地英语识别模型 |
+| `npm run rebuild` | 重建 better-sqlite3 原生模块 |
+| `npm run seed:difficulty` | 重新划分题库难度（维护者） |
 
 ## 数据与资源
 
