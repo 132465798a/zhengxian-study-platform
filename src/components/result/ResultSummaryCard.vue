@@ -32,21 +32,37 @@
         <div class="label">{{ t.practice.pending }}</div>
         <div class="value small num">{{ result.pendingCount }}</div>
       </div>
+      <div v-if="result.growthGained !== undefined" class="stat-tile">
+        <div class="label">{{ t.incentive.growth }}</div>
+        <div class="value small num growth">+{{ result.growthGained }}</div>
+      </div>
     </div>
+
+    <p v-if="unlockedTitles.length" class="unlock-line">
+      <i class="pi pi-trophy" />
+      {{ t.incentive.achievementsUnlocked }}：{{ unlockedTitles.join('、') }}
+    </p>
   </section>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { t } from '@/i18n'
+import { achievementTitle } from '@shared/constants'
 import type { SessionResult } from '@shared/types'
 
-defineProps<{ result: SessionResult; showScore?: boolean }>()
+const props = defineProps<{ result: SessionResult; showScore?: boolean }>()
+
+const unlockedTitles = computed<string[]>(() =>
+  (props.result.unlockedAchievements ?? []).map((code) => achievementTitle(code))
+)
 </script>
 
 <style scoped>
 .score-card {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 28px;
   padding: 24px 28px;
 }
@@ -111,6 +127,20 @@ defineProps<{ result: SessionResult; showScore?: boolean }>()
 }
 
 .score-stats .value.wrong {
+  color: var(--accent);
+}
+
+.score-stats .value.growth {
+  color: var(--accent);
+}
+
+.unlock-line {
+  flex-basis: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
   color: var(--accent);
 }
 

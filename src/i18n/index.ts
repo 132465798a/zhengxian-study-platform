@@ -9,6 +9,14 @@ import { stats } from './stats'
 import { admin } from './admin'
 import { character } from './character'
 import { english } from './english'
+import { incentive } from './incentive'
+import { play } from './play'
+import { goal } from './goal'
+import { levels } from './levels'
+import { challenge } from './challenge'
+import { family } from './family'
+import { portfolio } from './portfolio'
+import { relay } from './relay'
 
 export const t = {
   common,
@@ -21,5 +29,13 @@ export const t = {
   stats,
   admin,
   character,
-  english
+  english,
+  incentive,
+  play,
+  goal,
+  levels,
+  challenge,
+  family,
+  portfolio,
+  relay
 }

@@ -1,32 +1,53 @@
 import { IPC } from '@shared/ipc'
 import type {
+  AchievementItem,
   AnswerRecord,
+  ChallengeOutcome,
   CharacterDetail,
   CharacterSummary,
+  DailyChallenge,
   DoingPracticeItem,
   EnglishWord,
   ExamSession,
   ExamTemplate,
+  FamilyMatchDetail,
+  FamilyMatchSummary,
+  FamilyOutcome,
+  GoalKind,
+  GrowthPoint,
   HistoryItem,
   ImportPreview,
   ImportResult,
+  IncentiveOverview,
   KnowledgePoint,
+  LevelNode,
+  LevelOutcome,
+  LevelQuiz,
   NewQuestion,
   PaperType,
   PracticeConfig,
   PracticeRecord,
   PracticeSession,
+  PrintHistoryPage,
   Question,
+  QuestionAnswer,
   QuestionFilter,
   QuestionPage,
   QuestionType,
+  QuizAnswerInput,
+  RelayMatch,
+  RelayQuestionState,
+  RelayTurnOutcome,
   SessionResult,
   Stage,
   StatsOverview,
+  StudyCalendarDay,
   Subject,
   SubjectStat,
+  TimedChallenge,
   TrendPoint,
   User,
+  WeeklyGoal,
   WrongBookFilter,
   WrongBookPage
 } from '@shared/types'
@@ -209,6 +230,100 @@ export const importApi = {
     invoke<ImportPreview>(IPC.importPreview, { raw, fileName }),
   commit: (raw: string, fileName: string) =>
     invoke<ImportResult>(IPC.importCommit, { raw, fileName })
+}
+
+export const incentiveApi = {
+  overview: (userId: number) => invoke<IncentiveOverview>(IPC.incentiveOverview, { userId }),
+  achievements: (userId: number) => invoke<AchievementItem[]>(IPC.incentiveAchievements, { userId }),
+  daily: (userId: number) => invoke<DailyChallenge>(IPC.incentiveDailyGet, { userId }),
+  answerDaily: (userId: number, answer: unknown) =>
+    invoke<{ isCorrect: boolean | null; answer: QuestionAnswer; solution: string | null; gained: number }>(
+      IPC.incentiveDailyAnswer,
+      { userId, answer }
+    ),
+  calendar: (userId: number, month: string) =>
+    invoke<StudyCalendarDay[]>(IPC.incentiveCalendar, { userId, month }),
+  growth: (userId: number, days = 14) => invoke<GrowthPoint[]>(IPC.incentiveGrowth, { userId, days })
+}
+
+export const goalApi = {
+  get: (userId: number) => invoke<WeeklyGoal>(IPC.goalGet, { userId }),
+  set: (userId: number, kind: GoalKind, target: number) =>
+    invoke<WeeklyGoal>(IPC.goalSet, { userId, kind, target })
+}
+
+export const levelApi = {
+  list: (userId: number, subjectId: number, grade: number) =>
+    invoke<LevelNode[]>(IPC.levelList, { userId, subjectId, grade }),
+  start: (userId: number, subjectId: number, grade: number, levelIndex: number) =>
+    invoke<LevelQuiz>(IPC.levelStart, { userId, subjectId, grade, levelIndex }),
+  submit: (input: {
+    userId: number
+    subjectId: number
+    grade: number
+    levelIndex: number
+    answers: QuizAnswerInput[]
+  }) => invoke<LevelOutcome>(IPC.levelSubmit, input)
+}
+
+export const challengeApi = {
+  start: (userId: number, subjectId: number, grade: number) =>
+    invoke<TimedChallenge>(IPC.challengeStart, { userId, subjectId, grade }),
+  submit: (input: {
+    userId: number
+    subjectId: number
+    grade: number
+    answers: QuizAnswerInput[]
+  }) => invoke<ChallengeOutcome>(IPC.challengeSubmit, input)
+}
+
+export const familyApi = {
+  list: (userId: number) => invoke<FamilyMatchSummary[]>(IPC.familyList, { userId }),
+  create: (input: {
+    userId: number
+    subjectId: number
+    grade: number
+    title: string
+    count: number
+    endDate: string | null
+  }) => invoke<FamilyMatchSummary>(IPC.familyCreate, input),
+  get: (userId: number, matchId: number) =>
+    invoke<FamilyMatchDetail>(IPC.familyGet, { userId, matchId }),
+  submit: (input: {
+    userId: number
+    matchId: number
+    answers: QuizAnswerInput[]
+    durationSec: number
+  }) => invoke<FamilyOutcome>(IPC.familySubmit, input)
+}
+
+export const portfolioApi = {
+  list: (userId: number, page = 1, pageSize = 20) =>
+    invoke<PrintHistoryPage>(IPC.portfolioList, { userId, page, pageSize }),
+  remove: (userId: number, id: number) =>
+    invoke<{ deleted: boolean }>(IPC.portfolioRemove, { userId, id })
+}
+
+export const relayApi = {
+  history: (userId: number, limit = 10) =>
+    invoke<RelayMatch[]>(IPC.relayHistory, { userId, limit }),
+  create: (input: {
+    userA: number
+    userB: number
+    subjectId: number
+    grade: number
+    count: number
+    turnSeconds: number
+  }) => invoke<RelayMatch>(IPC.relayCreate, input),
+  get: (matchId: number) => invoke<RelayQuestionState>(IPC.relayGet, { matchId }),
+  answer: (input: {
+    matchId: number
+    userId: number
+    answer: unknown
+    timeout?: boolean
+  }) => invoke<RelayTurnOutcome>(IPC.relayAnswer, input),
+  void: (matchId: number, userId: number) =>
+    invoke<RelayQuestionState>(IPC.relayVoid, { matchId, userId })
 }
 
 export type { PracticeRecord, AnswerRecord, PaperType, Question }

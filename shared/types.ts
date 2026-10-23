@@ -265,6 +265,10 @@ export interface SessionResult {
   durationSec: number
   accuracy: number
   items: ResultItem[]
+  /** 本次结算获得的成长值，仅交卷返回时存在 */
+  growthGained?: number
+  /** 本次结算解锁的成就代码 */
+  unlockedAchievements?: string[]
 }
 
 export interface WrongBookItem {
@@ -364,6 +368,194 @@ export interface DoingPracticeItem {
   questionCount: number
   startedAt: string
   resumable: boolean
+}
+
+/** 成长值等级信息 */
+export interface GrowthLevel {
+  index: number
+  name: string
+  min: number
+  nextAt: number | null
+}
+
+export interface IncentiveOverview {
+  growth: number
+  level: GrowthLevel
+  streak: number
+  today: { answered: number; correct: number; accuracy: number }
+  weekGrowth: number
+}
+
+export interface AchievementItem {
+  code: string
+  title: string
+  description: string
+  unlocked: boolean
+  unlockedAt: string | null
+}
+
+export interface DailyChallenge {
+  date: string
+  question: Question
+  answered: boolean
+  isCorrect: boolean | null
+  userAnswer: unknown
+  answer: QuestionAnswer | null
+  solution: string | null
+}
+
+export interface StudyCalendarDay {
+  date: string
+  answered: number
+  correct: number
+}
+
+export interface GrowthPoint {
+  date: string
+  delta: number
+}
+
+/** 通用答题提交项，玩法类功能共用 */
+export interface QuizAnswerInput {
+  questionId: number
+  answer: unknown
+}
+
+export type GoalKind = 'count' | 'accuracy'
+
+export interface WeeklyGoal {
+  weekStart: string
+  kind: GoalKind
+  target: number
+  current: number
+  achieved: boolean
+}
+
+export type LevelStatus = 'locked' | 'current' | 'passed'
+
+export interface LevelNode {
+  index: number
+  knowledgeId: number
+  name: string
+  questionCount: number
+  status: LevelStatus
+  bestRate: number | null
+}
+
+export interface LevelQuiz {
+  subjectId: number
+  levelIndex: number
+  name: string
+  questions: Question[]
+}
+
+export interface LevelOutcome {
+  rate: number
+  correct: number
+  total: number
+  passed: boolean
+  unlockedNext: boolean
+  bestRate: number
+}
+
+export interface TimedChallenge {
+  questions: Question[]
+  seconds: number
+  bestScore: number
+  plays: number
+}
+
+export interface ChallengeOutcome {
+  score: number
+  correct: number
+  wrong: number
+  bestScore: number
+  improved: boolean
+}
+
+export interface FamilyEntry {
+  userId: number
+  name: string
+  correct: number
+  total: number
+  durationSec: number
+  finishedAt: string | null
+}
+
+export interface FamilyMatchSummary {
+  id: number
+  title: string
+  subjectId: number
+  subjectName: string
+  grade: number
+  questionCount: number
+  endDate: string | null
+  createdAt: string
+  entryCount: number
+  joined: boolean
+}
+
+export interface FamilyMatchDetail extends FamilyMatchSummary {
+  questions: Question[]
+  entries: FamilyEntry[]
+}
+
+export interface FamilyOutcome {
+  correct: number
+  total: number
+  durationSec: number
+  entries: FamilyEntry[]
+}
+
+export interface PrintHistoryItem {
+  id: number
+  title: string
+  subjectName: string
+  grade: number | null
+  questionCount: number
+  pages: number
+  createdAt: string
+}
+
+export interface PrintHistoryPage {
+  items: PrintHistoryItem[]
+  total: number
+}
+
+export type RelayStatus = 'running' | 'finished' | 'void'
+
+export interface RelayMatch {
+  id: number
+  subjectId: number
+  subjectName: string
+  grade: number
+  questionCount: number
+  turnSeconds: number
+  currentIndex: number
+  currentUserId: number | null
+  status: RelayStatus
+  userA: number
+  userB: number
+  nameA: string
+  nameB: string
+  correctA: number
+  correctB: number
+  createdAt: string
+  finishedAt: string | null
+  winnerId: number | null
+}
+
+export interface RelayQuestionState {
+  match: RelayMatch
+  question: Question | null
+  answered: { index: number; userId: number; isCorrect: boolean | null }[]
+}
+
+export interface RelayTurnOutcome {
+  isCorrect: boolean | null
+  finished: boolean
+  winnerId: number | null
+  state: RelayQuestionState
 }
 
 /** 自定义标题栏窗口控制 API，由 preload 暴露到渲染进程 */

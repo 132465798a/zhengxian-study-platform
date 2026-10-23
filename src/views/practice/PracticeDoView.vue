@@ -8,6 +8,7 @@
           <p class="do-sub">
             {{ t.practice.progress(store.answeredCount, store.total) }} ·
             {{ t.practice.elapsed }} <span class="num">{{ elapsedText }}</span>
+            <span v-if="comboText" class="combo-tag">{{ comboText }}</span>
           </p>
         </div>
       </div>
@@ -152,8 +153,8 @@ import AnswerSheet from '@/components/practice/AnswerSheet.vue'
 import { useAuthStore } from '@/stores/auth.store'
 import { usePracticeStore } from '@/stores/practice.store'
 import { t } from '@/i18n'
-import { isCustomQuestionId } from '@shared/constants'
-import type { QuestionType } from '@shared/types'
+import { isCustomQuestionId, comboMultiplier } from '@shared/constants'
+import type { QuestionType, SessionResult } from '@shared/types'
 
 const route = useRoute()
 const router = useRouter()
@@ -173,6 +174,21 @@ const questionIds = computed(() => store.questions.map((item) => item.questionId
 const question = computed(() => store.currentQuestion)
 const outcome = computed(() =>
   question.value ? store.outcomes[question.value.id] : undefined
+)
+const comboStreak = computed(() => {
+  let streak = 0
+  for (const item of store.questions) {
+    const result = store.outcomes[item.questionId]
+    if (!result) break
+    if (result.isCorrect === true) streak += 1
+    else if (result.isCorrect === false) streak = 0
+  }
+  return streak
+})
+const comboText = computed(() =>
+  comboStreak.value >= 3
+    ? t.incentive.practiceCombo(comboStreak.value, comboMultiplier(comboStreak.value))
+    : ''
 )
 const unansweredCount = computed(() => store.total - store.answeredCount)
 
@@ -255,12 +271,19 @@ function askFinish(): void {
   finishDialog.value = true
 }
 
+function settleQuery(result: SessionResult): Record<string, string> {
+  const query: Record<string, string> = {}
+  if (result.growthGained !== undefined) query.gained = String(result.growthGained)
+  if (result.unlockedAchievements?.length) query.unlocked = result.unlockedAchievements.join(',')
+  return query
+}
+
 async function doFinish(): Promise<void> {
   finishing.value = true
   try {
-    await store.finish()
+    const finished = await store.finish()
     finishDialog.value = false
-    router.push(`/practice/${recordId.value}/result`)
+    router.push({ path: `/practice/${recordId.value}/result`, query: settleQuery(finished) })
   } catch (error) {
     toast.add({
       severity: 'error',
@@ -342,6 +365,16 @@ onBeforeUnmount(() => {
   margin: 3px 0 0;
   font-size: 12px;
   color: var(--ink-faint);
+}
+
+.combo-tag {
+  margin-left: 8px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 600;
 }
 
 .head-right {

@@ -46,6 +46,8 @@
       </div>
     </section>
 
+    <IncentivePanel class="incentive-panel" />
+
     <section class="block">
       <div class="spread">
         <h2 class="section-title">{{ t.home.subjectTitle }}</h2>
@@ -194,6 +196,7 @@ import { contentApi, examApi, practiceApi, questionApi, statsApi, wrongApi } fro
 import { useAuthStore } from '@/stores/auth.store'
 import { t } from '@/i18n'
 import { SUBJECT_STYLE } from '@shared/constants'
+import IncentivePanel from '@/components/incentive/IncentivePanel.vue'
 import type { HistoryItem, StatsOverview, Subject } from '@shared/types'
 
 const router = useRouter()
@@ -284,6 +287,10 @@ onMounted(load)
 
 .block {
   margin-top: 18px;
+}
+
+.incentive-panel {
+  margin-top: 14px;
 }
 
 .subject-grid {

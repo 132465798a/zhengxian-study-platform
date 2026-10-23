@@ -133,6 +133,19 @@
       </section>
     </div>
 
+    <div class="two-col">
+      <section class="paper-card panel">
+        <h2 class="section-title">{{ t.incentive.growthTitle }}</h2>
+        <p class="muted small">{{ t.incentive.growthDesc }}</p>
+        <GrowthChart :user-id="currentUserId" />
+      </section>
+      <section class="paper-card panel">
+        <h2 class="section-title">{{ t.incentive.calendarTitle }}</h2>
+        <p class="muted small">{{ t.incentive.calendarDesc }}</p>
+        <StudyCalendar :user-id="currentUserId" />
+      </section>
+    </div>
+
     <section v-if="doings.length > 0" class="paper-card panel doing-panel">
       <div class="spread">
         <h2 class="section-title">{{ t.stats.doingTitle }}</h2>
@@ -221,6 +234,8 @@ import Button from 'primevue/button'
 import { examApi, practiceApi, statsApi } from '@/api'
 import { useAuthStore } from '@/stores/auth.store'
 import { t } from '@/i18n'
+import GrowthChart from '@/components/incentive/GrowthChart.vue'
+import StudyCalendar from '@/components/incentive/StudyCalendar.vue'
 import type {
   DoingPracticeItem,
   HistoryItem,
@@ -242,6 +257,7 @@ const CHART_BOTTOM = 150
 const BAR_MAX_HEIGHT = 100
 
 const auth = useAuthStore()
+const currentUserId = computed(() => auth.currentUser?.id ?? 0)
 const router = useRouter()
 
 const overview = ref<StatsOverview | null>(null)

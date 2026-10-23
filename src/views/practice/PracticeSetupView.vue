@@ -244,6 +244,7 @@ const modes = computed(() => [
 ])
 
 type StoredSetup = {
+  userId?: number
   subjectId: number | null
   grade: number
   difficulty: number
@@ -282,39 +283,45 @@ function readStoredSetup(): Partial<StoredSetup> {
 }
 
 const stored = readStoredSetup()
+const activeUserId = auth.currentUser?.id
+const storedSetup: Partial<StoredSetup> =
+  stored.userId === activeUserId ? stored : {}
 let pendingCustom: CustomPracticeConfig | null =
-  stored.custom && isStoredCustom(stored.custom) ? stored.custom : null
-if (typeof stored.subjectId === 'number' && Number.isInteger(stored.subjectId)) {
-  subjectId.value = stored.subjectId
-}
-if (typeof stored.grade === 'number' && gradeOptions.some((item) => item.value === stored.grade)) {
-  grade.value = stored.grade
+  storedSetup.custom && isStoredCustom(storedSetup.custom) ? storedSetup.custom : null
+if (typeof storedSetup.subjectId === 'number' && Number.isInteger(storedSetup.subjectId)) {
+  subjectId.value = storedSetup.subjectId
 }
 if (
-  typeof stored.difficulty === 'number' &&
-  difficultyOptions.some((item) => item.value === stored.difficulty)
+  typeof storedSetup.grade === 'number' &&
+  gradeOptions.some((item) => item.value === storedSetup.grade)
 ) {
-  difficulty.value = stored.difficulty
-}
-if (typeof stored.count === 'number' && countOptions.includes(stored.count)) {
-  count.value = stored.count
+  grade.value = storedSetup.grade
 }
 if (
-  stored.mode === 'random' ||
-  stored.mode === 'wrong' ||
-  stored.mode === 'knowledge'
+  typeof storedSetup.difficulty === 'number' &&
+  difficultyOptions.some((item) => item.value === storedSetup.difficulty)
 ) {
-  practiceMode.value = stored.mode
+  difficulty.value = storedSetup.difficulty
 }
-if (Array.isArray(stored.types)) {
+if (typeof storedSetup.count === 'number' && countOptions.includes(storedSetup.count)) {
+  count.value = storedSetup.count
+}
+if (
+  storedSetup.mode === 'random' ||
+  storedSetup.mode === 'wrong' ||
+  storedSetup.mode === 'knowledge'
+) {
+  practiceMode.value = storedSetup.mode
+}
+if (Array.isArray(storedSetup.types)) {
   const subjectName = subjects.value.find((s) => s.id === subjectId.value)?.name ?? initialSubjectName.value
   const allowed = TYPES_BY_SUBJECT[subjectName] ?? ALL_TYPES
-  const restoredTypes = stored.types.filter((item) => allowed.includes(item))
+  const restoredTypes = storedSetup.types.filter((item) => allowed.includes(item))
   if (restoredTypes.length > 0) types.value = restoredTypes
   else types.value = [...allowed]
 }
-if (Array.isArray(stored.knowledgeIds)) {
-  knowledgeIds.value = stored.knowledgeIds.filter((item) => Number.isInteger(item))
+if (Array.isArray(storedSetup.knowledgeIds)) {
+  knowledgeIds.value = storedSetup.knowledgeIds.filter((item) => Number.isInteger(item))
 }
 
 const subjectName = computed(
@@ -511,6 +518,7 @@ watch(
   [subjectId, grade, difficulty, count, practiceMode, types, knowledgeIds, customConfig],
   () => {
     const setup: StoredSetup = {
+      userId: auth.currentUser?.id,
       subjectId: subjectId.value,
       grade: grade.value,
       difficulty: difficulty.value,

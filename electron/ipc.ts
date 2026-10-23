@@ -50,7 +50,35 @@ import {
   wrongSummary
 } from './db/repositories/wrong.repo'
 import { overview, subjectStats, trend } from './db/repositories/stats.repo'
+import {
+  achievements,
+  answerDailyChallenge,
+  calendar,
+  dailyChallenge,
+  growthPoints,
+  overview as incentiveOverview
+} from './db/repositories/incentive.repo'
 import { listEnglishWords } from './db/repositories/english.repo'
+import { getWeeklyGoal, setWeeklyGoal } from './db/repositories/goal.repo'
+import { listLevels, startLevel, submitLevel } from './db/repositories/levels.repo'
+import {
+  startTimedChallenge,
+  submitTimedChallenge
+} from './db/repositories/challenge.repo'
+import {
+  createFamilyMatch,
+  getFamilyMatch,
+  listFamilyMatches,
+  submitFamilyAnswer
+} from './db/repositories/family.repo'
+import { listPrintHistory, removePrintHistory } from './db/repositories/portfolio.repo'
+import {
+  answerRelayTurn,
+  createRelayMatch,
+  getRelayMatch,
+  listRelayMatches,
+  voidRelayMatch
+} from './db/repositories/relay.repo'
 import { isAsrAvailable, transcribePcm } from './asr'
 import { synthesizeSpeech } from './tts'
 import {
@@ -72,7 +100,7 @@ import {
   listPrintTemplates,
   savePrintTemplate
 } from './db/repositories/print-template.repo'
-import type { IpcResponse, NewQuestion, PracticeConfig } from '../shared/types'
+import type { IpcResponse, NewQuestion, PracticeConfig, QuizAnswerInput } from '../shared/types'
 import {
   answerSchema,
   examStartSchema,
@@ -131,6 +159,11 @@ function handle<T>(channel: string, fn: (payload: Payload) => T | Promise<T>): v
       return failure(500, message)
     }
   })
+}
+
+function readAnswers(value: unknown): QuizAnswerInput[] {
+  if (!Array.isArray(value)) throw new ValidationError('答案参数不合法')
+  return value as QuizAnswerInput[]
 }
 
 export function registerIpcHandlers(): void {
@@ -345,6 +378,138 @@ export function registerIpcHandlers(): void {
 
   handle(IPC.statsTrend, (payload) =>
     trend(Number(payload.userId), Number(payload.days ?? 14))
+  )
+
+  handle(IPC.incentiveOverview, (payload) => incentiveOverview(Number(payload.userId)))
+
+  handle(IPC.incentiveAchievements, (payload) => achievements(Number(payload.userId)))
+
+  handle(IPC.incentiveDailyGet, (payload) => dailyChallenge(Number(payload.userId)))
+
+  handle(IPC.incentiveDailyAnswer, (payload) => {
+    const userId = Number(payload.userId)
+    if (!userId) throw new ValidationError('参数不合法')
+    return answerDailyChallenge(userId, payload.answer)
+  })
+
+  handle(IPC.incentiveCalendar, (payload) => {
+    const month = String(payload.month ?? '')
+    if (!/^\d{4}-\d{2}$/.test(month)) throw new ValidationError('月份格式应为 YYYY-MM')
+    return calendar(Number(payload.userId), month)
+  })
+
+  handle(IPC.incentiveGrowth, (payload) =>
+    growthPoints(Number(payload.userId), Number(payload.days ?? 14))
+  )
+
+  handle(IPC.goalGet, (payload) => getWeeklyGoal(Number(payload.userId)))
+
+  handle(IPC.goalSet, (payload) => {
+    const userId = Number(payload.userId)
+    const kind = String(payload.kind)
+    if (!userId) throw new ValidationError('参数不合法')
+    if (kind !== 'count' && kind !== 'accuracy') throw new ValidationError('目标类型不合法')
+    return setWeeklyGoal(userId, kind, Number(payload.target))
+  })
+
+  handle(IPC.levelList, (payload) =>
+    listLevels(Number(payload.userId), Number(payload.subjectId), Number(payload.grade))
+  )
+
+  handle(IPC.levelStart, (payload) =>
+    startLevel(
+      Number(payload.userId),
+      Number(payload.subjectId),
+      Number(payload.grade),
+      Number(payload.levelIndex)
+    )
+  )
+
+  handle(IPC.levelSubmit, (payload) =>
+    submitLevel(
+      Number(payload.userId),
+      Number(payload.subjectId),
+      Number(payload.grade),
+      Number(payload.levelIndex),
+      readAnswers(payload.answers)
+    )
+  )
+
+  handle(IPC.challengeStart, (payload) =>
+    startTimedChallenge(Number(payload.userId), Number(payload.subjectId), Number(payload.grade))
+  )
+
+  handle(IPC.challengeSubmit, (payload) =>
+    submitTimedChallenge(
+      Number(payload.userId),
+      Number(payload.subjectId),
+      Number(payload.grade),
+      readAnswers(payload.answers)
+    )
+  )
+
+  handle(IPC.familyList, (payload) => listFamilyMatches(Number(payload.userId)))
+
+  handle(IPC.familyCreate, (payload) =>
+    createFamilyMatch({
+      userId: Number(payload.userId),
+      subjectId: Number(payload.subjectId),
+      grade: Number(payload.grade),
+      title: String(payload.title ?? ''),
+      count: Number(payload.count),
+      endDate: payload.endDate ? String(payload.endDate) : null
+    })
+  )
+
+  handle(IPC.familyGet, (payload) =>
+    getFamilyMatch(Number(payload.userId), Number(payload.matchId))
+  )
+
+  handle(IPC.familySubmit, (payload) =>
+    submitFamilyAnswer({
+      userId: Number(payload.userId),
+      matchId: Number(payload.matchId),
+      answers: readAnswers(payload.answers),
+      durationSec: Number(payload.durationSec)
+    })
+  )
+
+  handle(IPC.portfolioList, (payload) =>
+    listPrintHistory(Number(payload.userId), Number(payload.page ?? 1), Number(payload.pageSize ?? 20))
+  )
+
+  handle(IPC.portfolioRemove, (payload) =>
+    removePrintHistory(Number(payload.userId), Number(payload.id))
+  )
+
+  handle(IPC.relayCreate, (payload) =>
+    createRelayMatch({
+      userA: Number(payload.userA),
+      userB: Number(payload.userB),
+      subjectId: Number(payload.subjectId),
+      grade: Number(payload.grade),
+      count: Number(payload.count),
+      turnSeconds: Number(payload.turnSeconds)
+    })
+  )
+
+  handle(IPC.relayGet, (payload) => getRelayMatch(Number(payload.matchId)))
+
+  handle(IPC.relayAnswer, (payload) =>
+    answerRelayTurn({
+      matchId: Number(payload.matchId),
+      userId: Number(payload.userId),
+      answer: payload.answer,
+      timeout: payload.timeout === true
+    })
+  )
+
+  handle(IPC.relayVoid, (payload) =>
+    voidRelayMatch(Number(payload.matchId), Number(payload.userId))
+  )
+
+  handle(IPC.relayHistory, (payload) =>
+    listRelayMatches(Number(payload.userId), Number(payload.limit ?? 10))
   )
 
   handle(IPC.importPreview, (payload) => {

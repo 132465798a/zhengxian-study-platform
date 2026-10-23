@@ -1,0 +1,21 @@
+export const levels = {
+  title: '闯关地图',
+  desc: '按知识点一关一关往上打，正确率达到 80% 即可解锁下一关',
+  progress: (done: number, total: number): string => `已通关 ${done} / ${total}`,
+  questionCount: (count: number): string => `${count} 道题`,
+  statusPassed: '已通关',
+  statusCurrent: '当前关卡',
+  statusLocked: '未解锁',
+  bestRate: (rate: number): string => `最佳 ${rate}%`,
+  noAttempt: '尚未挑战',
+  empty: '这个学科还没有可闯关的知识点',
+  submitLabel: '提交本关',
+  resultPassed: '本关通过',
+  resultFailed: '本关未通过',
+  resultCorrect: (correct: number, total: number): string => `答对 ${correct} / ${total} 题`,
+  failedTip: '正确率未达到 80%，再打一次吧',
+  passedTip: '通关成功，下一关已解锁',
+  allPassedTip: '恭喜通关，已完成全部关卡',
+  backToMap: '返回地图',
+  retry: '再打一次'
+}

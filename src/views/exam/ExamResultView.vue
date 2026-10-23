@@ -69,13 +69,13 @@
             <div class="answer-block">
               <span class="block-label">{{ t.practice.yourAnswer }}</span>
               <div class="block-text">
-                <LatexText :text="formatAnswer(item.userAnswer)" />
+                <LatexText :text="formatAnswer(item.userAnswer, item.question)" />
               </div>
             </div>
             <div class="answer-block">
               <span class="block-label">{{ t.practice.correctAnswer }}</span>
               <div class="block-text correct">
-                <LatexText :text="formatAnswer(item.question.answer)" />
+                <LatexText :text="formatAnswer(item.question.answer, item.question)" />
               </div>
             </div>
             <div v-if="item.question.solution" class="answer-block">
@@ -122,7 +122,7 @@ import ResultSummaryCard from '@/components/result/ResultSummaryCard.vue'
 import { examApi } from '@/api'
 import { useAuthStore } from '@/stores/auth.store'
 import { t } from '@/i18n'
-import type { SessionResult } from '@shared/types'
+import type { ResultItem, SessionResult } from '@shared/types'
 
 type TagSeverity = 'success' | 'danger' | 'warn'
 
@@ -151,20 +151,37 @@ function statusSeverity(value: boolean | null): TagSeverity {
   return 'warn'
 }
 
-function formatAnswer(value: unknown): string {
+function formatAnswer(value: unknown, question: ResultItem['question']): string {
+  const optionText = (index: number): string => {
+    const options = Array.isArray(question.options) ? question.options : []
+    return typeof options[index] === 'string' ? options[index] : String(index)
+  }
   if (value === null || value === undefined || value === '') return t.practice.noAnswer
+  if (typeof value === 'number') return optionText(value)
   if (Array.isArray(value)) {
     if (value.length === 0) return t.practice.noAnswer
     return value
-      .map((entry) =>
-        typeof entry === 'object' && entry !== null
+      .map((entry) => {
+        if (typeof entry === 'number') return optionText(entry)
+        return typeof entry === 'object' && entry !== null
           ? (JSON.stringify(entry) ?? String(entry))
           : String(entry)
-      )
+      })
       .join('、')
   }
   if (typeof value === 'object') return JSON.stringify(value) ?? String(value)
   return String(value)
+}
+
+function applySettle(data: SessionResult): SessionResult {
+  const raw = route.query.gained
+  if (raw !== undefined) {
+    const gained = Number(raw)
+    if (Number.isFinite(gained)) data.growthGained = gained
+  }
+  const unlocked = String(route.query.unlocked ?? '')
+  if (unlocked) data.unlockedAchievements = unlocked.split(',').filter(Boolean)
+  return data
 }
 
 async function load(): Promise<void> {
@@ -176,7 +193,7 @@ async function load(): Promise<void> {
   loading.value = true
   loadError.value = ''
   try {
-    result.value = await examApi.result(auth.currentUser.id, recordId)
+    result.value = applySettle(await examApi.result(auth.currentUser.id, recordId))
   } catch (error) {
     loadError.value = errorText(error)
   } finally {

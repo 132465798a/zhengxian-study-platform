@@ -162,6 +162,7 @@ import QuestionRenderer from '@/components/question/QuestionRenderer.vue'
 import { useAuthStore } from '@/stores/auth.store'
 import { useExamStore } from '@/stores/exam.store'
 import { t } from '@/i18n'
+import type { SessionResult } from '@shared/types'
 
 const route = useRoute()
 const router = useRouter()
@@ -197,11 +198,18 @@ function onAnswer(value: unknown): void {
   void exam.saveAnswer(question.id, value)
 }
 
+function settleQuery(result: SessionResult): Record<string, string> {
+  const query: Record<string, string> = {}
+  if (result.growthGained !== undefined) query.gained = String(result.growthGained)
+  if (result.unlockedAchievements?.length) query.unlocked = result.unlockedAchievements.join(',')
+  return query
+}
+
 async function onTimeUp(): Promise<void> {
   if (finished.value || submitting.value) return
   submitting.value = true
   try {
-    await exam.submit()
+    const submitted = await exam.submit()
     finished.value = true
     toast.add({
       severity: 'info',
@@ -209,7 +217,7 @@ async function onTimeUp(): Promise<void> {
       detail: t.exam.autoSubmit,
       life: 4000
     })
-    await router.replace(`/exam/${recordId}/result`)
+    await router.replace({ path: `/exam/${recordId}/result`, query: settleQuery(submitted) })
   } catch (error) {
     toast.add({
       severity: 'error',
@@ -226,10 +234,10 @@ async function submitExam(): Promise<void> {
   if (submitting.value) return
   submitting.value = true
   try {
-    await exam.submit()
+    const submitted = await exam.submit()
     finished.value = true
     confirmVisible.value = false
-    await router.replace(`/exam/${recordId}/result`)
+    await router.replace({ path: `/exam/${recordId}/result`, query: settleQuery(submitted) })
   } catch (error) {
     toast.add({
       severity: 'error',

@@ -281,6 +281,121 @@ CREATE TABLE IF NOT EXISTS wrong_book (
   mastered      INTEGER NOT NULL DEFAULT 0,
   UNIQUE(user_id, question_id)
 );
+
+CREATE TABLE IF NOT EXISTS point_ledger (
+  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id    INTEGER NOT NULL REFERENCES user(id) ON DELETE CASCADE,
+  delta      INTEGER NOT NULL,
+  reason     TEXT NOT NULL,
+  ref_type   TEXT,
+  ref_id     INTEGER,
+  created_at TEXT NOT NULL DEFAULT (datetime('now','localtime'))
+);
+CREATE INDEX IF NOT EXISTS idx_point_user ON point_ledger(user_id, created_at);
+
+CREATE TABLE IF NOT EXISTS study_day (
+  user_id  INTEGER NOT NULL REFERENCES user(id) ON DELETE CASCADE,
+  date     TEXT NOT NULL,
+  answered INTEGER NOT NULL DEFAULT 0,
+  correct  INTEGER NOT NULL DEFAULT 0,
+  PRIMARY KEY (user_id, date)
+);
+
+CREATE TABLE IF NOT EXISTS daily_challenge (
+  user_id     INTEGER NOT NULL REFERENCES user(id) ON DELETE CASCADE,
+  date        TEXT NOT NULL,
+  question_id INTEGER NOT NULL,
+  user_answer TEXT,
+  is_correct  INTEGER,
+  answered_at TEXT,
+  PRIMARY KEY (user_id, date)
+);
+
+CREATE TABLE IF NOT EXISTS achievement (
+  user_id     INTEGER NOT NULL REFERENCES user(id) ON DELETE CASCADE,
+  code        TEXT NOT NULL,
+  unlocked_at TEXT NOT NULL DEFAULT (datetime('now','localtime')),
+  PRIMARY KEY (user_id, code)
+);
+
+CREATE TABLE IF NOT EXISTS weekly_goal (
+  user_id    INTEGER NOT NULL REFERENCES user(id) ON DELETE CASCADE,
+  week_start TEXT NOT NULL,
+  kind       TEXT NOT NULL,
+  target     INTEGER NOT NULL,
+  created_at TEXT NOT NULL DEFAULT (datetime('now','localtime')),
+  PRIMARY KEY (user_id, week_start)
+);
+
+CREATE TABLE IF NOT EXISTS level_progress (
+  user_id     INTEGER NOT NULL REFERENCES user(id) ON DELETE CASCADE,
+  subject_id  INTEGER NOT NULL,
+  level_index INTEGER NOT NULL,
+  best_rate   INTEGER NOT NULL DEFAULT 0,
+  passed      INTEGER NOT NULL DEFAULT 0,
+  updated_at  TEXT NOT NULL DEFAULT (datetime('now','localtime')),
+  PRIMARY KEY (user_id, subject_id, level_index)
+);
+
+CREATE TABLE IF NOT EXISTS challenge_record (
+  user_id      INTEGER PRIMARY KEY REFERENCES user(id) ON DELETE CASCADE,
+  best_score   INTEGER NOT NULL DEFAULT 0,
+  best_correct INTEGER NOT NULL DEFAULT 0,
+  plays        INTEGER NOT NULL DEFAULT 0,
+  updated_at   TEXT NOT NULL DEFAULT (datetime('now','localtime'))
+);
+
+CREATE TABLE IF NOT EXISTS family_match (
+  id             INTEGER PRIMARY KEY AUTOINCREMENT,
+  title          TEXT NOT NULL,
+  subject_id     INTEGER NOT NULL,
+  subject_name   TEXT NOT NULL,
+  grade          INTEGER NOT NULL,
+  question_count INTEGER NOT NULL,
+  payload        TEXT NOT NULL,
+  end_date       TEXT,
+  created_by     INTEGER NOT NULL,
+  created_at     TEXT NOT NULL DEFAULT (datetime('now','localtime'))
+);
+
+CREATE TABLE IF NOT EXISTS family_entry (
+  match_id     INTEGER NOT NULL REFERENCES family_match(id) ON DELETE CASCADE,
+  user_id      INTEGER NOT NULL REFERENCES user(id) ON DELETE CASCADE,
+  correct      INTEGER NOT NULL DEFAULT 0,
+  total        INTEGER NOT NULL DEFAULT 0,
+  duration_sec INTEGER NOT NULL DEFAULT 0,
+  finished_at  TEXT NOT NULL DEFAULT (datetime('now','localtime')),
+  PRIMARY KEY (match_id, user_id)
+);
+
+CREATE TABLE IF NOT EXISTS print_history (
+  id             INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id        INTEGER NOT NULL REFERENCES user(id) ON DELETE CASCADE,
+  title          TEXT NOT NULL,
+  subject_name   TEXT NOT NULL DEFAULT '',
+  grade          INTEGER,
+  question_count INTEGER NOT NULL DEFAULT 0,
+  pages          INTEGER NOT NULL DEFAULT 0,
+  created_at     TEXT NOT NULL DEFAULT (datetime('now','localtime'))
+);
+CREATE INDEX IF NOT EXISTS idx_print_history_user ON print_history(user_id, created_at);
+
+CREATE TABLE IF NOT EXISTS relay_match (
+  id             INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_a         INTEGER NOT NULL,
+  user_b         INTEGER NOT NULL,
+  subject_id     INTEGER NOT NULL,
+  subject_name   TEXT NOT NULL,
+  grade          INTEGER NOT NULL,
+  question_count INTEGER NOT NULL,
+  turn_seconds   INTEGER NOT NULL DEFAULT 30,
+  payload        TEXT NOT NULL,
+  answers        TEXT NOT NULL DEFAULT '[]',
+  current_index  INTEGER NOT NULL DEFAULT 0,
+  status         TEXT NOT NULL DEFAULT 'running',
+  created_at     TEXT NOT NULL DEFAULT (datetime('now','localtime')),
+  finished_at    TEXT
+);
 `
 
 /** 旧版单库结构中，题库相关表已迁移到 bank.db，这里列出需要清理的表 */

@@ -69,7 +69,8 @@ const groups = computed(() => [
       { key: 'practice', label: t.nav.practice, icon: 'pi pi-pencil', to: '/practice/setup' },
       { key: 'exam', label: t.nav.exam, icon: 'pi pi-clock', to: '/exam' },
       { key: 'wrongbook', label: t.nav.wrongbook, icon: 'pi pi-bookmark', to: '/wrongbook' },
-      { key: 'stats', label: t.nav.stats, icon: 'pi pi-chart-line', to: '/stats' }
+      { key: 'stats', label: t.nav.stats, icon: 'pi pi-chart-line', to: '/stats' },
+      { key: 'play', label: t.nav.play, icon: 'pi pi-play-circle', to: '/play' }
     ]
   },
   {

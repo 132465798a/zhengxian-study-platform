@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>正贤学习平台 · 激励与娱乐玩法清单</title>
+<style>
+  :root {
+    --ink: #17191d; --ink-2: #3d434d; --ink-3: #6b7280;
+    --line: #e3e6ea; --bg: #fbfbfa; --card: #fff;
+    --accent: #1f5fd0; --accent-soft: #eaf0fb;
+    --warn: #b4530a; --warn-soft: #fdf1e6;
+    --ok: #1f6f5c; --ok-soft: #e6f2ee;
+    --mono: "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Segoe UI", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif; font-size: 15px; line-height: 1.75; }
+  .wrap { display: grid; grid-template-columns: 216px minmax(0, 1fr); gap: 44px; max-width: 1100px; margin: 0 auto; padding: 0 32px 96px; }
+  nav { position: sticky; top: 0; align-self: start; padding: 40px 0 32px; max-height: 100vh; overflow-y: auto; }
+  nav .brand { font-size: 12px; letter-spacing: .14em; color: var(--ink-3); text-transform: uppercase; margin-bottom: 6px; }
+  nav .name { font-weight: 700; font-size: 15px; margin-bottom: 20px; }
+  nav a { display: block; padding: 5px 0 5px 12px; border-left: 2px solid transparent; color: var(--ink-3); text-decoration: none; font-size: 13.5px; }
+  nav a:hover { color: var(--accent); border-left-color: var(--accent); }
+  main { padding-top: 40px; min-width: 0; }
+  header { padding: 8px 0 32px; border-bottom: 1px solid var(--line); margin-bottom: 40px; }
+  .kicker { font-size: 12px; letter-spacing: .18em; color: var(--accent); text-transform: uppercase; font-weight: 600; }
+  h1 { font-size: 32px; line-height: 1.3; margin: 12px 0 12px; letter-spacing: -.01em; }
+  .lede { font-size: 16px; color: var(--ink-2); max-width: 62ch; margin: 0 0 20px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { font-size: 12.5px; padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink-2); background: var(--card); }
+  .done, .todo { font-size: 11.5px; font-weight: 600; padding: 1px 8px; border-radius: 999px; margin-left: 8px; vertical-align: 2px; }
+  .done { color: var(--ok); background: var(--ok-soft); }
+  .todo { color: var(--ink-3); background: #f1f3f6; }
+  section { margin-bottom: 56px; scroll-margin-top: 24px; }
+  h2 { font-size: 22px; margin: 0 0 6px; }
+  h2 .num { color: var(--accent); margin-right: 10px; font-weight: 600; }
+  h3 { font-size: 16.5px; margin: 28px 0 8px; }
+  p { margin: 0 0 14px; color: var(--ink-2); }
+  ul, ol { margin: 0 0 16px; padding-left: 22px; color: var(--ink-2); }
+  li { margin: 4px 0; }
+  strong { color: var(--ink); }
+  code { font-family: var(--mono); font-size: 12.5px; background: #f1f3f6; padding: 1px 5px; border-radius: 4px; color: #1b3b6f; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0 8px; font-size: 13.5px; background: var(--card); }
+  caption { caption-side: top; text-align: left; font-size: 12.5px; color: var(--ink-3); padding-bottom: 6px; }
+  th, td { border-bottom: 1px solid var(--line); padding: 9px 12px; text-align: left; vertical-align: top; }
+  th { background: #f6f7f9; font-size: 12.5px; font-weight: 600; color: var(--ink-2); white-space: nowrap; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tbody tr:hover { background: #fafbfc; }
+  .callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 18px 0; }
+  .callout.warn { border-color: var(--warn); background: var(--warn-soft); }
+  .callout.ok { border-color: var(--ok); background: var(--ok-soft); }
+  .callout .t { font-weight: 600; color: var(--ink); font-size: 13.5px; margin-bottom: 4px; }
+  .callout p:last-child { margin-bottom: 0; }
+  pre { background: #15181d; color: #dfe4ea; padding: 16px 18px; border-radius: 10px; overflow-x: auto; font-family: var(--mono); font-size: 12.5px; line-height: 1.7; margin: 14px 0 18px; }
+  pre .c { color: #7e8794; }
+  .flow { display: grid; gap: 10px; margin: 16px 0 20px; }
+  .flow .s { background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 10px 14px; font-size: 13.5px; color: var(--ink-2); }
+  .flow .s b { color: var(--ink); }
+  footer { border-top: 1px solid var(--line); padding-top: 18px; color: var(--ink-3); font-size: 12.5px; }
+  @media (max-width: 960px) {
+    .wrap { grid-template-columns: 1fr; gap: 0; padding: 0 20px 64px; }
+    nav { position: static; max-height: none; padding: 24px 0 8px; border-bottom: 1px solid var(--line); }
+    nav a { display: inline-block; border-left: none; padding: 3px 10px 3px 0; }
+    h1 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="brand">Feature List</div>
+    <div class="name">激励与娱乐玩法</div>
+    <a href="#scope">0 · 范围说明</a>
+    <a href="#low">1 · 低成本玩法</a>
+    <a href="#mid">2 · 中等成本玩法</a>
+    <a href="#relay">3 · 接力答题</a>
+    <a href="#order">4 · 上线顺序</a>
+  </nav>
+
+  <main>
+    <header>
+      <div class="kicker">Offline · Single Mouse · Family Use</div>
+      <h1>激励与娱乐玩法清单</h1>
+      <p class="lede">
+        全部基于现有数据，不需要美术资源、不引入语音与主题系统。玩法按改造成本分两档，另附「接力答题」的单鼠标详细设计。
+        每个玩法都标了依赖的数据与边界，方便直接排期。
+      </p>
+      <div class="chips">
+        <span class="chip">12 个玩法</span>
+        <span class="chip">全部离线</span>
+        <span class="chip">单鼠标可用</span>
+        <span class="chip">不需要美术资源</span>
+      </div>
+    </header>
+
+    <section id="scope">
+      <h2><span class="num">0</span>范围说明</h2>
+      <p>按你的意见，以下方案不做：答题音效、宠物 / 植物养成、主题皮肤、语音鼓励、知识竞赛。原因分别是需要音频素材、美术资源、多套样式维护、TTS 素材、以及交互复杂度接近小游戏。</p>
+      <p>下面保留的 12 个玩法，共同点是：只用现有题库、答题记录与打印数据，最多新增几张表，不引入新的资源类型。</p>
+
+      <h3>完成情况</h3>
+      <table>
+        <caption>12 个玩法已全部落地，入口在侧边栏「玩法中心」</caption>
+        <thead><tr><th>玩法</th><th>状态</th><th>落地位置</th></tr></thead>
+        <tbody>
+          <tr><td>连击 Combo</td><td class="done">已完成</td><td>答题页顶部显示，交卷按倍率结算</td></tr>
+          <tr><td>每日一题</td><td class="done">已完成</td><td>首页激励面板入口，答对 +5 成长值</td></tr>
+          <tr><td>错题复仇</td><td class="done">已完成</td><td>错题本按钮，复用错题专练并按学科组卷</td></tr>
+          <tr><td>成长曲线</td><td class="done">已完成</td><td>学习统计页柱状图</td></tr>
+          <tr><td>成就徽章</td><td class="done">已完成</td><td>成就页 6 项，交卷自动判定</td></tr>
+          <tr><td>学习日历</td><td class="done">已完成</td><td>学习统计页月视图</td></tr>
+          <tr><td>结果页成长值反馈</td><td class="done">已完成</td><td>练习 / 考试结果卡显示「本次 +N」与解锁成就</td></tr>
+          <tr><td>目标设定</td><td class="done">已完成</td><td>玩法中心 /play/goal，本周题量或正确率</td></tr>
+          <tr><td>闯关地图</td><td class="done">已完成</td><td>玩法中心 /play/levels，按知识点 80% 解锁</td></tr>
+          <tr><td>限时挑战</td><td class="done">已完成</td><td>玩法中心 /play/challenge，60 秒个人最佳</td></tr>
+          <tr><td>家庭挑战赛</td><td class="done">已完成</td><td>玩法中心 /play/family，同卷快照与排行榜</td></tr>
+          <tr><td>试卷作品集</td><td class="done">已完成</td><td>玩法中心 /play/portfolio，保存 / 打印后自动收录</td></tr>
+          <tr><td>接力答题</td><td class="done">已完成</td><td>玩法中心 /play/relay，单鼠标交接与回合倒计时</td></tr>
+        </tbody>
+      </table>
+      <h3>本轮补齐的入口与展示</h3>
+      <ul>
+        <li>首页新增成长面板：成长值、等级进度、连续天数、今日答题与正确率、本周成长，以及每日一题与成就两个入口。</li>
+        <li>答题页顶部新增连击标签，达到 3 连时显示当前倍数。</li>
+        <li>学习统计页新增成长曲线与学习日历，均按当前账号查询。</li>
+        <li>练习 / 考试结果卡新增「成长值 +N」，解锁新成就时追加一行「已解锁：xxx」。</li>
+        <li>错题本按钮改为「错题复仇」，并补充按学科组卷的规则说明。</li>
+        <li>结果页「你的答案」原先对判断题、选择题只显示选项序号，现已回显选项文字。</li>
+      </ul>
+
+      <h3>落地差异说明</h3>
+      <ul>
+        <li><strong>目标设定</strong>：进度实时从一个账号的周答题数据汇总，不单独存「已达成」字段；只统计练习与考试，玩法内的答题不计入周目标。</li>
+        <li><strong>闯关地图</strong>：关卡取「有题目的知识点」，按知识点排序，每关最多 10 题，正确率 ≥80% 解锁下一关；已通过关卡可重打刷最佳正确率。</li>
+        <li><strong>限时挑战</strong>：60 秒、30 题池，答对 +1、答错 −1，未作答不计分；只保存个人最佳分与游玩次数，不做排行榜。</li>
+        <li><strong>家庭挑战赛</strong>：创建时固定题目快照，家人先后作答；榜单按答对数降序、用时升序实时更新，可在创建时设置截止日期。</li>
+        <li><strong>试卷作品集</strong>：保存 PDF 或打印成功后自动写入，记录标题、学科、年级、题量；页数取 PDF 实际页数，直接打印时记 0，界面回退显示题量。不保存 PDF 文件本身。</li>
+        <li><strong>接力答题</strong>：交接页遮罩、回合 15/30/60 秒、超时判错、答完统一公布；总分相同判平局（未做总用时比较）。胜 +15、平 +8、负 +3，每人每天最多计 3 局。</li>
+      </ul>
+    </section>
+
+    <section id="low">
+      <h2><span class="num">1</span>低成本玩法</h2>
+      <p>这一档不需要新页面，或者只需要在现有页面上加一块内容，建议优先做。</p>
+
+      <h3>1.1 连击 Combo <span class="done">已完成</span></h3>
+      <ul>
+        <li><strong>规则</strong>：同一次练习内连续答对计数，3 连 ×1.2、5 连 ×1.5、10 连 ×2；答错或跳过清零。</li>
+        <li><strong>结算</strong>：交卷时按每题当时的连击系数累加成长值，四舍五入取整。</li>
+        <li><strong>边界</strong>：只算本次练习，跨会话不累计；倍率只作用于「答对 +1」这一项。</li>
+        <li><strong>展示</strong>：答题页顶部显示「连击 5 · ×1.5」。</li>
+      </ul>
+
+      <h3>1.2 每日一题 <span class="done">已完成</span></h3>
+      <ul>
+        <li><strong>规则</strong>：每天首次进入按当前年级抽 1 题，答对 +5 成长值，答错也能看解析但不加值。</li>
+        <li><strong>边界</strong>：每天只能答一次，跨天重置；不占用每日任务的题量。</li>
+        <li><strong>依赖</strong>：<code>daily_challenge(user_id, date, question_id, answered)</code>。</li>
+      </ul>
+
+      <h3>1.3 错题复仇 <span class="done">已完成</span></h3>
+      <ul>
+        <li><strong>规则</strong>：从错题本勾选 3–10 道组成「复仇卷」，全部答对可把对应错题标记为已掌握；每对 1 题 +1 成长值，全对额外 +10。</li>
+        <li><strong>边界</strong>：复仇卷仍走普通练习流程，复用现有判分与结果页。</li>
+        <li><strong>依赖</strong>：现有 <code>wrong_book</code> 与 <code>custom_question</code> 机制。</li>
+      </ul>
+
+      <h3>1.4 成长曲线 <span class="done">已完成</span></h3>
+      <ul>
+        <li><strong>规则</strong>：统计页新增折线，展示累计成长值、每周增量，并标出升级节点。</li>
+        <li><strong>边界</strong>：纯查询，不新增表；等级区间写在常量里。</li>
+      </ul>
+
+      <h3>1.5 成就徽章 <span class="done">已完成</span></h3>
+      <ul>
+        <li><strong>规则</strong>：代码里维护一张成就表，达成即解锁，只做图标与文字，不做动画。</li>
+      </ul>
+      <table>
+        <caption>首批成就（可后续追加）</caption>
+        <thead><tr><th>成就</th><th>条件</th></tr></thead>
+        <tbody>
+          <tr><td>百题斩</td><td>累计答对 100 题</td></tr>
+          <tr><td>满分王</td><td>任意一次考试得分率 100%</td></tr>
+          <tr><td>七日不辍</td><td>连续学习 7 天</td></tr>
+          <tr><td>错题清零</td><td>错题本未掌握数归零</td></tr>
+          <tr><td>勤学之星</td><td>单月学习 20 天以上</td></tr>
+          <tr><td>稳如老狗</td><td>单次练习 20 题全对</td></tr>
+        </tbody>
+      </table>
+      <p><strong>依赖</strong>：<code>achievement(user_id, code, unlocked_at)</code>，解锁时写一次，不重复。</p>
+
+      <h3>1.6 目标设定</h3>
+      <ul>
+        <li><strong>规则</strong>：孩子自己设本周目标（题量或正确率），达成后给称号，不发成长值，避免为了奖励刷题。</li>
+        <li><strong>边界</strong>：每周只能设一次，周一开始新周期；未达成不惩罚。</li>
+        <li><strong>依赖</strong>：<code>weekly_goal(user_id, week_start, kind, target, achieved)</code>。</li>
+      </ul>
+    </section>
+
+    <section id="mid">
+      <h2><span class="num">2</span>中等成本玩法</h2>
+
+      <h3>2.1 闯关地图</h3>
+      <ul>
+        <li><strong>规则</strong>：按知识点顺序生成关卡，每关 10 题；正确率 ≥ 80% 解锁下一关，否则可重打。</li>
+        <li><strong>展示</strong>：学科内一列关卡节点，已通关、当前关、未解锁三种状态。</li>
+        <li><strong>依赖</strong>：<code>level_progress(user_id, subject_id, level_index, status)</code>；关卡顺序取自 <code>knowledge_point.sort</code>。</li>
+      </ul>
+
+      <h3>2.2 限时挑战</h3>
+      <ul>
+        <li><strong>规则</strong>：60 秒内连续答题，答对 +1 分，答错扣 1 分，可跳过；时间到结算，记录个人最佳。</li>
+        <li><strong>边界</strong>：只记个人最佳，不进排行榜，避免和日常练习混在一起。</li>
+        <li><strong>依赖</strong>：<code>challenge_record(user_id, score, correct, created_at)</code>。</li>
+      </ul>
+
+      <h3>2.3 家庭挑战赛</h3>
+      <ul>
+        <li><strong>规则</strong>：家长选一份卷子，孩子们在一周内先后完成同一份快照，周末汇总排名。</li>
+        <li><strong>边界</strong>：同一台电脑只有一个鼠标，所以是「先后作答」，不是同时；复用同题 PK 的快照机制。</li>
+        <li><strong>依赖</strong>：复用对战表，增加「赛程」概念即可，不新建表。</li>
+      </ul>
+
+      <h3>2.4 学习日历 <span class="done">已完成</span></h3>
+      <ul>
+        <li><strong>规则</strong>：月视图，颜色深浅表示当天答题量；点击某天可看当天的练习与考试记录。</li>
+        <li><strong>依赖</strong>：<code>study_day</code> 聚合，纯查询。</li>
+      </ul>
+
+      <h3>2.5 试卷作品集</h3>
+      <ul>
+        <li><strong>规则</strong>：保存每次打印 / 导出的记录（标题、学科、页数、时间、题目快照），孩子可以回看自己出过的卷子。</li>
+        <li><strong>边界</strong>：只存快照，不存 PDF 文件，避免磁盘膨胀；需要时可重新导出。</li>
+        <li><strong>依赖</strong>：<code>print_history(user_id, paper_id, title, pages, created_at)</code>。</li>
+      </ul>
+    </section>
+
+    <section id="relay">
+      <h2><span class="num">3</span>接力答题（单鼠标设计）</h2>
+      <p>核心约束：只有一套鼠标键盘。所以不能同屏抢答，只能「轮流作答」，并用交接页防止对方偷看。</p>
+
+      <h3>3.1 流程</h3>
+      <div class="flow">
+        <div class="s"><b>① 建立对局</b>：选择两名账号、学科、年级、题量（建议 10 题）与回合时长（默认 30 秒）。</div>
+        <div class="s"><b>② 交接页</b>：全屏遮罩，显示「请把鼠标交给 A」，对方看不到题目；点击「我已就位」才开始。</div>
+        <div class="s"><b>③ 答题回合</b>：A 答 1 题，倒计时结束或提交后立即进入下一个交接页。</div>
+        <div class="s"><b>④ 交替</b>：B 交接后答下一题，如此往复直到题目用完。</div>
+        <div class="s"><b>⑤ 结算</b>：按答对题数比较；相同则比总用时；再相同算平局。</div>
+      </div>
+
+      <h3>3.2 规则细节</h3>
+      <table>
+        <thead><tr><th>项目</th><th>规则</th><th>原因</th></tr></thead>
+        <tbody>
+          <tr><td>题目可见性</td><td>交接页完全遮住题干与选项</td><td>防止下一位提前看到题目</td></tr>
+          <tr><td>回合时长</td><td>默认 30 秒，可设 15 / 30 / 60</td><td>超时自动判错，避免卡住</td></tr>
+          <tr><td>跳过</td><td>不允许跳过</td><td>跳过会打乱轮转节奏</td></tr>
+          <tr><td>答案揭示</td><td>全部答完再统一显示对错</td><td>否则对方能听到或看到提示</td></tr>
+          <tr><td>中途退出</td><td>对局作废，不计成长值</td><td>避免刷局</td></tr>
+          <tr><td>成长值</td><td>胜 +15、平 +8、负 +3，每天最多 3 局</td><td>与其他对战一致</td></tr>
+        </tbody>
+      </table>
+
+      <h3>3.3 与同题 PK 的区别</h3>
+      <table>
+        <thead><tr><th>对比</th><th>同题 PK</th><th>接力答题</th></tr></thead>
+        <tbody>
+          <tr><td>作答方式</td><td>先后各做完整套</td><td>一人一题交替</td></tr>
+          <tr><td>用时</td><td>几分钟到十几分钟</td><td>通常 5–8 分钟</td></tr>
+          <tr><td>适合场景</td><td>周末比一场</td><td>饭后十分钟</td></tr>
+          <tr><td>实现</td><td>共享试卷快照</td><td>在 PK 基础上加回合状态机</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <div class="t">实现要点</div>
+        <p>接力不需要两套椅子两套设备：整个对局是一份试卷快照 + 一个回合游标（当前第几题、轮到谁）。交接页只是遮罩 + 确认按钮，状态存在内存即可，退出即作废。</p>
+      </div>
+    </section>
+
+    <section id="order">
+      <h2><span class="num">4</span>上线顺序</h2>
+      <table>
+        <caption>按「投入产出比」排序</caption>
+        <thead><tr><th>批次</th><th>玩法</th><th>新增表</th><th>理由</th></tr></thead>
+        <tbody>
+          <tr><td>第一批</td><td>连击、每日一题、错题复仇、成就徽章</td><td>2 张</td><td>全部基于现有答题流，页面改动小，孩子感知最直接</td></tr>
+          <tr><td>第二批</td><td>成长曲线、学习日历、目标设定</td><td>1 张</td><td>纯查询与展示，风险低，用来强化长期反馈</td></tr>
+          <tr><td>第三批</td><td>闯关地图、限时挑战</td><td>2 张</td><td>需要新页面与状态，但能显著提升日常练习的趣味</td></tr>
+          <tr><td>第四批</td><td>接力答题、家庭挑战赛、试卷作品集</td><td>1 张</td><td>依赖对战机制与打印记录，放最后</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout warn">
+        <div class="t">一条原则</div>
+        <p>奖励挂在「过程」而不是「排名」：连续、坚持、消灭错题这类可自我超越的指标，比拼第几名更适合家里两三个孩子，也不会让落后者放弃。</p>
+      </div>
+    </section>
+
+    <footer>
+      依据：现有 <code>answer_record</code>、<code>practice_record</code>、<code>wrong_book</code>、<code>study_day</code>、<code>knowledge_point.sort</code>、<code>practice_paper</code> 快照与打印链路。全部玩法离线运行，不依赖网络与外部素材。
+    </footer>
+  </main>
+</div>
+</body>
+</html>

@@ -86,7 +86,7 @@
 
           <div class="answer-line">
             <span class="label">{{ t.practice.yourAnswer }}</span>
-            <LatexText :text="formatAnswer(item.userAnswer)" />
+            <LatexText :text="formatAnswer(item.userAnswer, item.question)" />
           </div>
 
           <div v-if="item.question.solution" class="solution">
@@ -162,10 +162,18 @@ function statusLabel(value: boolean | null): string {
   return t.practice.pending
 }
 
-function formatAnswer(value: unknown): string {
+function formatAnswer(value: unknown, question: ResultItem['question']): string {
+  const optionText = (index: number): string => {
+    const options = Array.isArray(question.options) ? question.options : []
+    return typeof options[index] === 'string' ? options[index] : String(index)
+  }
   if (value === null || value === undefined || value === '') return t.practice.noAnswer
+  if (typeof value === 'number') return optionText(value)
   if (Array.isArray(value)) {
-    const text = value.filter((item) => String(item ?? '').trim() !== '').join('、')
+    const text = value
+      .filter((item) => String(item ?? '').trim() !== '')
+      .map((item) => (typeof item === 'number' ? optionText(item) : String(item)))
+      .join('、')
     return text || t.practice.noAnswer
   }
   if (typeof value === 'object') {
@@ -176,12 +184,23 @@ function formatAnswer(value: unknown): string {
   return String(value)
 }
 
+function applySettle(data: SessionResult): SessionResult {
+  const raw = route.query.gained
+  if (raw !== undefined) {
+    const gained = Number(raw)
+    if (Number.isFinite(gained)) data.growthGained = gained
+  }
+  const unlocked = String(route.query.unlocked ?? '')
+  if (unlocked) data.unlockedAchievements = unlocked.split(',').filter(Boolean)
+  return data
+}
+
 async function load(): Promise<void> {
   if (!auth.currentUser) return
   loading.value = true
   loadError.value = ''
   try {
-    result.value = await practiceApi.result(auth.currentUser.id, recordId)
+    result.value = applySettle(await practiceApi.result(auth.currentUser.id, recordId))
   } catch (error) {
     loadError.value = error instanceof Error ? error.message : t.common.status.error
   } finally {

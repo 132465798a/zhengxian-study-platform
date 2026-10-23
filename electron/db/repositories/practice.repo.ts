@@ -6,6 +6,7 @@ import { topUp } from '../generators/runtime'
 import { getSubject, knowledgeIdsUnder } from './content.repo'
 import { insertCustomQuestions, linkCustomQuestions } from './custom.repo'
 import { getQuestion, pickRandomQuestions } from './question.repo'
+import { settlePractice } from './incentive.repo'
 import {
   buildResult,
   findPaperScore,
@@ -386,7 +387,13 @@ export function finishPractice(recordId: number, userId: number, durationSec: nu
        finished_at = datetime('now','localtime') WHERE id = ?`
   ).run(stats.correct ?? 0, Math.max(0, Math.round(durationSec)), recordId)
 
-  return buildResult('practice', recordId, paper?.title ?? '练习', Math.round(durationSec))
+  const settle = settlePractice(userId, recordId)
+
+  return {
+    ...buildResult('practice', recordId, paper?.title ?? '练习', Math.round(durationSec)),
+    growthGained: settle.gained,
+    unlockedAchievements: settle.unlocked
+  }
 }
 
 export function gradeAnswer(input: {

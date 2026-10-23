@@ -87,6 +87,60 @@ const routes: RouteRecordRaw[] = [
         meta: { title: t.stats.title, subtitle: t.nav.statsDesc }
       },
       {
+        path: 'incentive/daily',
+        name: 'incentive-daily',
+        component: () => import('@/views/incentive/DailyChallengeView.vue'),
+        meta: { title: t.incentive.dailyTitle, subtitle: t.incentive.dailyDesc }
+      },
+      {
+        path: 'incentive/achievements',
+        name: 'incentive-achievements',
+        component: () => import('@/views/incentive/AchievementsView.vue'),
+        meta: { title: t.incentive.achievementsTitle, subtitle: t.incentive.achievementsDesc }
+      },
+      {
+        path: 'play',
+        name: 'play',
+        component: () => import('@/views/play/PlaygroundView.vue'),
+        meta: { title: t.nav.play, subtitle: t.nav.playDesc }
+      },
+      {
+        path: 'play/goal',
+        name: 'play-goal',
+        component: () => import('@/views/play/GoalView.vue'),
+        meta: { title: t.goal.title, subtitle: t.goal.desc }
+      },
+      {
+        path: 'play/levels',
+        name: 'play-levels',
+        component: () => import('@/views/play/LevelsView.vue'),
+        meta: { title: t.levels.title, subtitle: t.levels.desc }
+      },
+      {
+        path: 'play/challenge',
+        name: 'play-challenge',
+        component: () => import('@/views/play/ChallengeView.vue'),
+        meta: { title: t.challenge.title, subtitle: t.challenge.desc }
+      },
+      {
+        path: 'play/family',
+        name: 'play-family',
+        component: () => import('@/views/play/FamilyView.vue'),
+        meta: { title: t.family.title, subtitle: t.family.desc }
+      },
+      {
+        path: 'play/portfolio',
+        name: 'play-portfolio',
+        component: () => import('@/views/play/PortfolioView.vue'),
+        meta: { title: t.portfolio.title, subtitle: t.portfolio.desc }
+      },
+      {
+        path: 'play/relay',
+        name: 'play-relay',
+        component: () => import('@/views/play/RelayView.vue'),
+        meta: { title: t.relay.title, subtitle: t.relay.desc }
+      },
+      {
         path: 'admin/questions',
         name: 'admin-questions',
         component: () => import('@/views/admin/QuestionManageView.vue'),

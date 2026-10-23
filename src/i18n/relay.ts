@@ -1,0 +1,51 @@
+export const relay = {
+  title: '接力答题',
+  desc: '两个人轮流作答，一人一题，答完统一公布结果',
+
+  formTitle: '发起对局',
+  opponent: '对手',
+  opponentPlaceholder: '选择对手',
+  subject: '学科',
+  subjectPlaceholder: '选择学科',
+  count: '题量',
+  countHint: '5 到 20 题',
+  turnSeconds: '回合时长',
+  seconds: (value: number): string => `${value} 秒`,
+  startMatch: '开始对局',
+  opponentRequired: '请选择对手',
+  subjectRequired: '请选择学科',
+
+  historyTitle: '历史对局',
+  historyEmpty: '还没有对局记录',
+  historyEmptyHint: '选好对手和学科，开始第一局吧',
+  historyMeta: (subject: string, grade: number, count: number): string =>
+    `${subject} · ${grade} 年级 · ${count} 题`,
+  statusRunning: '进行中',
+  statusFinished: '已结束',
+  statusVoid: '已作废',
+  continueMatch: '继续对局',
+  scoreText: (a: number, b: number): string => `${a} : ${b}`,
+
+  handoffTitle: (name: string): string => `请把鼠标交给 ${name}`,
+  handoffHint: '交接完成后点击下方按钮，题目才会出现',
+  ruleTime: (seconds: number): string => `每回合 ${seconds} 秒，超时自动判错`,
+  ruleNoHint: '答错不会当场提示',
+  ruleReveal: '全部答完后统一公布结果',
+  ready: '我已就位',
+  currentPlayer: (name: string): string => `当前玩家：${name}`,
+  progress: (current: number, total: number): string => `第 ${current} / ${total} 题`,
+  countdown: (seconds: number): string => `剩余 ${seconds} 秒`,
+  submit: '提交',
+
+  resultTitle: '本局结果',
+  correctText: (count: number): string => `答对 ${count} 题`,
+  winnerText: (name: string): string => `${name} 获胜`,
+  drawText: '平局',
+  again: '再来一局',
+  backToLobby: '返回大厅',
+
+  endMatch: '结束对局',
+  endTitle: '结束对局',
+  endHint: '结束后本局作废，双方成绩不再计入，确定继续吗？',
+  endAction: '确认作废'
+}

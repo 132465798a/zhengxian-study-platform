@@ -7,6 +7,7 @@ import { defaultPrintOptions, PAPER_SIZES } from '../../shared/print'
 import type { PrintDocument, PrintOptions, PrintRequest } from '../../shared/print'
 import { ValidationError } from '../errors'
 import { runtimeConfig } from '../config'
+import { recordPrint } from '../db/repositories/portfolio.repo'
 
 interface PrintJob {
   token: string
@@ -17,6 +18,7 @@ interface PrintJob {
   ready: boolean
   preview: boolean
   pdf: Buffer | null
+  recorded: boolean
   waiters: Array<() => void>
 }
 
@@ -166,6 +168,7 @@ function createJob(request: PrintRequest, preview = false): PrintJob {
     ready: false,
     preview,
     pdf: null,
+    recorded: false,
     waiters: []
   }
   jobs.set(job.token, job)
@@ -313,6 +316,30 @@ function defaultFileName(document: PrintDocument): string {
   return `${safe}.pdf`
 }
 
+function pdfPageCount(pdf: Buffer): number {
+  const text = pdf.toString('latin1')
+  const matches = text.match(/\/Type\s*\/Page[^s]/g)
+  return matches ? matches.length : 0
+}
+
+/** 保存或打印成功后写入试卷作品集，失败不影响主流程 */
+function recordJob(job: PrintJob, pdf: Buffer | null): void {
+  if (job.recorded) return
+  job.recorded = true
+  try {
+    recordPrint({
+      userId: job.userId,
+      title: job.document.title,
+      subjectName: job.document.meta.subject,
+      grade: job.document.meta.grade,
+      questionCount: job.document.meta.questionCount,
+      pages: pdf ? pdfPageCount(pdf) : 0
+    })
+  } catch (error) {
+    console.error('[print] 记录试卷作品集失败：', error)
+  }
+}
+
 /** 保存 PDF；PRINT_TEST_OUTPUT 指向目录时跳过系统对话框，便于端到端测试 */
 async function savePdfFile(
   job: PrintJob,
@@ -323,6 +350,7 @@ async function savePdfFile(
     mkdirSync(testDir, { recursive: true })
     const file = join(testDir, defaultFileName(job.document))
     writeFileSync(file, pdf)
+    recordJob(job, pdf)
     return { canceled: false, path: file }
   }
   const result = await dialog.showSaveDialog({
@@ -332,6 +360,7 @@ async function savePdfFile(
   })
   if (result.canceled || !result.filePath) return { canceled: true }
   writeFileSync(result.filePath, pdf)
+  recordJob(job, pdf)
   return { canceled: false, path: result.filePath }
 }
 
@@ -395,6 +424,7 @@ export async function printRequest(payload: unknown): Promise<{ ok: boolean }> {
         (success) => resolve(success)
       )
     })
+    if (ok) recordJob(job, null)
     return { ok }
   } finally {
     if (job.window && !job.window.isDestroyed()) job.window.destroy()

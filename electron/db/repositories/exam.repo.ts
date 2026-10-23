@@ -2,6 +2,7 @@ import { getDb } from '../connection'
 import { scoreAnswer } from '../scoring'
 import { topUp } from '../generators/runtime'
 import { getExamPaper, getPaper, buildResult, getAnswers, markWrong, upsertAnswer, safeParse } from './session.shared'
+import { settleExam } from './incentive.repo'
 import type {
   AnswerRecord,
   ExamRecord,
@@ -289,7 +290,12 @@ export function submitExam(recordId: number, userId: number, durationSec: number
   })
 
   submit()
-  return buildResult('exam', recordId, paper.title, Math.round(durationSec))
+  const settle = settleExam(userId, recordId)
+  return {
+    ...buildResult('exam', recordId, paper.title, Math.round(durationSec)),
+    growthGained: settle.gained,
+    unlockedAchievements: settle.unlocked
+  }
 }
 
 export function getExamResult(userId: number, recordId: number): SessionResult | null {

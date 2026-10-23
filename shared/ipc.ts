@@ -68,6 +68,37 @@ export const IPC = {
   statsSubjects: 'stats:subjects',
   statsTrend: 'stats:trend',
 
+  incentiveOverview: 'incentive:overview',
+  incentiveAchievements: 'incentive:achievements',
+  incentiveDailyGet: 'incentive:daily-get',
+  incentiveDailyAnswer: 'incentive:daily-answer',
+  incentiveCalendar: 'incentive:calendar',
+  incentiveGrowth: 'incentive:growth',
+
+  goalGet: 'goal:get',
+  goalSet: 'goal:set',
+
+  levelList: 'level:list',
+  levelStart: 'level:start',
+  levelSubmit: 'level:submit',
+
+  challengeStart: 'challenge:start',
+  challengeSubmit: 'challenge:submit',
+
+  familyList: 'family:list',
+  familyCreate: 'family:create',
+  familyGet: 'family:get',
+  familySubmit: 'family:submit',
+
+  portfolioList: 'portfolio:list',
+  portfolioRemove: 'portfolio:remove',
+
+  relayCreate: 'relay:create',
+  relayGet: 'relay:get',
+  relayAnswer: 'relay:answer',
+  relayVoid: 'relay:void',
+  relayHistory: 'relay:history',
+
   importPreview: 'import:preview',
   importCommit: 'import:commit'
 } as const

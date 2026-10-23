@@ -135,3 +135,38 @@ export const GRADE_LABEL = (grade: number): string => {
   const local = grade <= 9 ? grade - 6 : grade - 9
   return `${stage}${local}年级`
 }
+
+/** 成长值等级：只做展示，不附带权限 */
+export const GROWTH_LEVELS: Array<{ min: number; name: string }> = [
+  { min: 0, name: '启蒙' },
+  { min: 100, name: '勤学' },
+  { min: 300, name: '精进' },
+  { min: 700, name: '博学' },
+  { min: 1500, name: '卓越' }
+]
+
+/** 连击倍率：连续答对达到阈值后，答对得分按倍率计算 */
+export const COMBO_RULES: Array<{ streak: number; multiplier: number }> = [
+  { streak: 10, multiplier: 2 },
+  { streak: 5, multiplier: 1.5 },
+  { streak: 3, multiplier: 1.2 }
+]
+
+export function comboMultiplier(streak: number): number {
+  const rule = COMBO_RULES.find((item) => streak >= item.streak)
+  return rule ? rule.multiplier : 1
+}
+
+/** 成就定义：代码、标题、达成条件说明 */
+export const ACHIEVEMENTS: Array<{ code: string; title: string; description: string }> = [
+  { code: 'hundred', title: '百题斩', description: '累计答对 100 题' },
+  { code: 'perfect', title: '满分王', description: '任意一次考试得分率 100%' },
+  { code: 'week7', title: '七日不辍', description: '连续学习 7 天' },
+  { code: 'wrong_clear', title: '错题清零', description: '错题本未掌握数归零' },
+  { code: 'month20', title: '勤学之星', description: '单月学习 20 天以上' },
+  { code: 'all_right20', title: '稳如老狗', description: '单次练习 20 题全对' }
+]
+
+export function achievementTitle(code: string): string {
+  return ACHIEVEMENTS.find((item) => item.code === code)?.title ?? code
+}
